@@ -2,8 +2,11 @@
     dead_code,
     non_camel_case_types,
     non_snake_case,
+    unused_extern_crates,
     clippy::type_complexity
 )]
+#[rustfmt::skip]
+extern crate alloc;
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
@@ -24,7 +27,7 @@ pub enum Input {
 pub enum Output {
     Answered(meta_signal_belief_nexus::Output),
     Restored(meta_signal_belief_nexus::TranslatorConfiguration),
-    Failed(String),
+    Failed(alloc::string::String),
 }
 #[rustfmt::skip]
 #[allow(clippy::result_large_err, clippy::ptr_arg, clippy::borrowed_box)]
@@ -32,10 +35,10 @@ pub trait Answering {
     fn call(
         &self,
         call: &Call_Data,
-    ) -> std::result::Result<meta_signal_belief_nexus::Output, Output>;
+    ) -> core::result::Result<meta_signal_belief_nexus::Output, Output>;
     fn restore_translator_configuration(
         &self,
-    ) -> std::result::Result<meta_signal_belief_nexus::TranslatorConfiguration, Output>;
+    ) -> core::result::Result<meta_signal_belief_nexus::TranslatorConfiguration, Output>;
 }
 #[rustfmt::skip]
 pub trait Answerable {
