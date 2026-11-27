@@ -37,7 +37,7 @@ mod tests {
         let names = crate::socket_names();
         assert_eq!(names.public_nexus_socket.0, "belief.sock");
         assert_eq!(names.meta_nexus_socket.0, "belief-meta.sock");
-        assert_eq!(names.public_translator_socket.0, "pattern-translator.sock");
+        assert_eq!(names.public_translator_socket.0, "belief-translator.sock");
         assert_eq!(
             names.meta_translator_socket.0,
             "belief-meta-translator.sock"

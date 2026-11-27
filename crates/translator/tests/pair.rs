@@ -96,7 +96,7 @@ impl Tree {
             .args(["70000", "8388608", "25", "100000", "64"])
             .spawn()
             .unwrap();
-        for socket in ["belief.sock", "belief-meta.sock", "pattern-translator.sock", "belief-meta-translator.sock"] {
+        for socket in ["belief.sock", "belief-meta.sock", "belief-translator.sock", "belief-meta-translator.sock"] {
             let path = self.runtime().join(socket);
             until(&format!("{socket} to appear"), || path.exists());
         }
@@ -273,7 +273,7 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
     subscriber.kill().unwrap();
     subscriber.wait().unwrap();
     stop(launcher);
-    for socket in ["belief.sock", "belief-meta.sock", "pattern-translator.sock", "belief-meta-translator.sock"] {
+    for socket in ["belief.sock", "belief-meta.sock", "belief-translator.sock", "belief-meta-translator.sock"] {
         let path = tree.runtime().join(socket);
         if path.exists() {
             std::fs::remove_file(path).unwrap();
