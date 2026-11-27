@@ -16,7 +16,7 @@ trap cleanup EXIT
 export XDG_RUNTIME_DIR="$base/run"
 export XDG_CONFIG_HOME="$base/config"
 mkdir -p "$XDG_CONFIG_HOME/nexus"
-printf '%s\n' '{ proof }' > "$XDG_CONFIG_HOME/nexus/pattern.datom"
+printf '%s\n' '{ proof }' > "$XDG_CONFIG_HOME/nexus/belief.datom"
 runtime="$XDG_RUNTIME_DIR/nexus/proof"
 state="$base/state"
 repository="$base/repository"

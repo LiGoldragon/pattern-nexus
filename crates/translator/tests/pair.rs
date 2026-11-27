@@ -1,6 +1,6 @@
 //! The real pair as a place starts it, in an isolated temporary tree: the shared pair launcher
 //! starts the built Nexus and the built translator with its deployment, and the CLIs take their
-//! datom alone, their place read from `nexus/pattern.datom` under the configuration home.
+//! datom alone, their place read from `nexus/belief.datom` under the configuration home.
 //!
 //! The same Inputs are answered with the same Outputs: the deployment's twenty settings and the
 //! paired Nexus's two sockets are applied first, so the first Configure of the place is answered
@@ -58,7 +58,7 @@ impl Tree {
     fn new() -> Self {
         let tree = Self { root: tempfile::tempdir().unwrap() };
         std::fs::create_dir_all(tree.root.path().join("config/nexus")).unwrap();
-        std::fs::write(tree.root.path().join("config/nexus/pattern.datom"), format!("{{ {PLACE} }}")).unwrap();
+        std::fs::write(tree.root.path().join("config/nexus/belief.datom"), format!("{{ {PLACE} }}")).unwrap();
         tree
     }
 
@@ -298,10 +298,10 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
 #[test]
 fn a_cli_with_no_configuration_sends_nothing_and_names_the_file() {
     let tree = Tree::new();
-    std::fs::remove_file(tree.path().join("config/nexus/pattern.datom")).unwrap();
+    std::fs::remove_file(tree.path().join("config/nexus/belief.datom")).unwrap();
     let output = tree.cli(env!("CARGO_BIN_EXE_pattern-nexus")).arg("Resolve.[]").output().unwrap();
     assert_eq!(output.status.code(), Some(2));
     let refusal = String::from_utf8_lossy(&output.stderr);
     assert!(refusal.starts_with("Missing."), "{refusal}");
-    assert!(refusal.contains("nexus/pattern.datom"), "{refusal}");
+    assert!(refusal.contains("nexus/belief.datom"), "{refusal}");
 }

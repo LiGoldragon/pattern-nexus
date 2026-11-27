@@ -72,7 +72,7 @@
               70000 8388608 25 100000 64
           '';
           # Each CLI takes its datom alone; its place is the one
-          # nexus/pattern.datom names under the configuration home.
+          # nexus/belief.datom names under the configuration home.
           cli = pkgs.runCommand "pattern-nexus-cli" { } ''
             mkdir -p "$out/bin"
             cp ${translatorBuild}/bin/pattern-nexus "$out/bin/pattern-nexus"

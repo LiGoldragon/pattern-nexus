@@ -39,7 +39,7 @@ pattern-nexus-meta '<meta datom>'
 every translator shares; its Nix package supplies the Nexus, the translator
 with its deployment (`crates/translator/deployment.datom`), the admission and
 the text budget. Each CLI takes its datom alone: its place is the one
-`$XDG_CONFIG_HOME/nexus/pattern.datom` (`~/.config/nexus/pattern.datom`) names,
+`$XDG_CONFIG_HOME/nexus/belief.datom` (`~/.config/nexus/belief.datom`) names,
 `{ <place-name> }`, resolved under `$XDG_RUNTIME_DIR/nexus/`. Socket names are
 `belief.sock`, `belief-meta.sock`, `pattern-translator.sock`, and
 `belief-meta-translator.sock`; Memory is `belief.memory` under State.
