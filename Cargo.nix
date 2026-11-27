@@ -43,50 +43,50 @@ rec {
   # You can override the features with
   # workspaceMembers."${crateName}".build.override { features = [ "default" "feature1" ... ]; }.
   workspaceMembers = {
-    "belief-nexus-core" = rec {
-      packageId = "belief-nexus-core";
+    "pattern-nexus-core" = rec {
+      packageId = "pattern-nexus-core";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "belief-nexus-core";
+        packageId = "pattern-nexus-core";
       };
 
       # Debug support which might change between releases.
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
-    "belief-nexus-daemon" = rec {
-      packageId = "belief-nexus-daemon";
+    "pattern-nexus-daemon" = rec {
+      packageId = "pattern-nexus-daemon";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "belief-nexus-daemon";
+        packageId = "pattern-nexus-daemon";
       };
 
       # Debug support which might change between releases.
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
-    "belief-nexus-translator" = rec {
-      packageId = "belief-nexus-translator";
+    "pattern-nexus-translator" = rec {
+      packageId = "pattern-nexus-translator";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "belief-nexus-translator";
+        packageId = "pattern-nexus-translator";
       };
 
       # Debug support which might change between releases.
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
-    "belief-nexus-wire" = rec {
-      packageId = "belief-nexus-wire";
+    "pattern-nexus-wire" = rec {
+      packageId = "pattern-nexus-wire";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "belief-nexus-wire";
+        packageId = "pattern-nexus-wire";
       };
 
       # Debug support which might change between releases.
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
-    "emission-belief-nexus" = rec {
-      packageId = "emission-belief-nexus";
+    "emission-pattern-nexus" = rec {
+      packageId = "emission-pattern-nexus";
       build = internal.buildRustCrateWithFeatures {
-        packageId = "emission-belief-nexus";
+        packageId = "emission-pattern-nexus";
       };
 
       # Debug support which might change between releases.
@@ -131,20 +131,20 @@ rec {
         ];
 
       };
-      "belief-nexus-core" = rec {
-        crateName = "belief-nexus-core";
+      "pattern-nexus-core" = rec {
+        crateName = "pattern-nexus-core";
         version = "1.1.0";
         edition = "2021";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/core; };
-        libName = "belief_nexus_core";
+        libName = "pattern_nexus_core";
         dependencies = [
           {
-            name = "emission-belief-nexus";
-            packageId = "emission-belief-nexus";
+            name = "emission-pattern-nexus";
+            packageId = "emission-pattern-nexus";
           }
           {
-            name = "meta-signal-belief-nexus";
-            packageId = "meta-signal-belief-nexus";
+            name = "meta-signal-pattern-nexus";
+            packageId = "meta-signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -152,8 +152,8 @@ rec {
             packageId = "sha2";
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -165,31 +165,31 @@ rec {
         ];
 
       };
-      "belief-nexus-daemon" = rec {
-        crateName = "belief-nexus-daemon";
+      "pattern-nexus-daemon" = rec {
+        crateName = "pattern-nexus-daemon";
         version = "1.1.0";
         edition = "2021";
         crateBin = [
           {
-            name = "belief-nexus-daemon";
-            path = "src/bin/belief-nexus-daemon.rs";
+            name = "pattern-nexus-daemon";
+            path = "src/bin/pattern-nexus-daemon.rs";
             requiredFeatures = [ ];
           }
         ];
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/daemon; };
-        libName = "belief_nexus_daemon";
+        libName = "pattern_nexus_daemon";
         dependencies = [
           {
-            name = "belief-nexus-core";
-            packageId = "belief-nexus-core";
+            name = "pattern-nexus-core";
+            packageId = "pattern-nexus-core";
           }
           {
-            name = "belief-nexus-wire";
-            packageId = "belief-nexus-wire";
+            name = "pattern-nexus-wire";
+            packageId = "pattern-nexus-wire";
           }
           {
-            name = "emission-belief-nexus";
-            packageId = "emission-belief-nexus";
+            name = "emission-pattern-nexus";
+            packageId = "emission-pattern-nexus";
           }
           {
             name = "futures-util";
@@ -201,8 +201,8 @@ rec {
             packageId = "kameo";
           }
           {
-            name = "meta-signal-belief-nexus";
-            packageId = "meta-signal-belief-nexus";
+            name = "meta-signal-pattern-nexus";
+            packageId = "meta-signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -232,8 +232,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -262,38 +262,38 @@ rec {
         ];
 
       };
-      "belief-nexus-translator" = rec {
-        crateName = "belief-nexus-translator";
+      "pattern-nexus-translator" = rec {
+        crateName = "pattern-nexus-translator";
         version = "1.1.0";
         edition = "2021";
         crateBin = [
           {
-            name = "belief-nexus";
-            path = "src/bin/belief-nexus.rs";
+            name = "pattern-nexus";
+            path = "src/bin/pattern-nexus.rs";
             requiredFeatures = [ ];
           }
           {
-            name = "belief-nexus-meta";
-            path = "src/bin/belief-nexus-meta.rs";
+            name = "pattern-nexus-meta";
+            path = "src/bin/pattern-nexus-meta.rs";
             requiredFeatures = [ ];
           }
           {
-            name = "belief-pair";
-            path = "src/bin/belief-pair.rs";
+            name = "pattern-pair";
+            path = "src/bin/pattern-pair.rs";
             requiredFeatures = [ ];
           }
           {
-            name = "belief-translator";
-            path = "src/bin/belief-translator.rs";
+            name = "pattern-translator";
+            path = "src/bin/pattern-translator.rs";
             requiredFeatures = [ ];
           }
         ];
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/translator; };
-        libName = "belief_nexus_translator";
+        libName = "pattern_nexus_translator";
         dependencies = [
           {
-            name = "belief-nexus-wire";
-            packageId = "belief-nexus-wire";
+            name = "pattern-nexus-wire";
+            packageId = "pattern-nexus-wire";
             features = [ "datom" ];
           }
           {
@@ -301,13 +301,13 @@ rec {
             packageId = "datom-codec";
           }
           {
-            name = "emission-belief-nexus";
-            packageId = "emission-belief-nexus";
+            name = "emission-pattern-nexus";
+            packageId = "emission-pattern-nexus";
             features = [ "datom" ];
           }
           {
-            name = "meta-signal-belief-nexus";
-            packageId = "meta-signal-belief-nexus";
+            name = "meta-signal-pattern-nexus";
+            packageId = "meta-signal-pattern-nexus";
             usesDefaultFeatures = false;
             features = [ "datom" ];
           }
@@ -343,8 +343,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
             features = [ "datom" ];
           }
@@ -378,12 +378,12 @@ rec {
         };
         resolvedDefaultFeatures = [ "datom" "default" ];
       };
-      "belief-nexus-wire" = rec {
-        crateName = "belief-nexus-wire";
+      "pattern-nexus-wire" = rec {
+        crateName = "pattern-nexus-wire";
         version = "1.1.0";
         edition = "2021";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/wire; };
-        libName = "belief_nexus_wire";
+        libName = "pattern_nexus_wire";
         dependencies = [
           {
             name = "datom-codec";
@@ -391,8 +391,8 @@ rec {
             optional = true;
           }
           {
-            name = "meta-signal-belief-nexus";
-            packageId = "meta-signal-belief-nexus";
+            name = "meta-signal-pattern-nexus";
+            packageId = "meta-signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -417,8 +417,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -430,7 +430,7 @@ rec {
           }
         ];
         features = {
-          "datom" = [ "dep:datom-codec" "dep:protos" "signal-belief-nexus/datom" "meta-signal-belief-nexus/datom" "shared-translator/datom" "nexus-exchange/datom" ];
+          "datom" = [ "dep:datom-codec" "dep:protos" "signal-pattern-nexus/datom" "meta-signal-pattern-nexus/datom" "shared-translator/datom" "nexus-exchange/datom" ];
         };
         resolvedDefaultFeatures = [ "datom" "default" ];
       };
@@ -770,12 +770,12 @@ rec {
         ];
 
       };
-      "emission-belief-nexus" = rec {
-        crateName = "emission-belief-nexus";
+      "emission-pattern-nexus" = rec {
+        crateName = "emission-pattern-nexus";
         version = "1.1.0";
         edition = "2021";
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/emission; };
-        libName = "emission_belief_nexus";
+        libName = "emission_pattern_nexus";
         dependencies = [
           {
             name = "datom-codec";
@@ -783,8 +783,8 @@ rec {
             optional = true;
           }
           {
-            name = "meta-signal-belief-nexus";
-            packageId = "meta-signal-belief-nexus";
+            name = "meta-signal-pattern-nexus";
+            packageId = "meta-signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -809,8 +809,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -825,7 +825,7 @@ rec {
           }
         ];
         features = {
-          "datom" = [ "dep:datom-codec" "dep:protos" "signal-belief-nexus/datom" "meta-signal-belief-nexus/datom" "nexus-exchange/datom" ];
+          "datom" = [ "dep:datom-codec" "dep:protos" "signal-pattern-nexus/datom" "meta-signal-pattern-nexus/datom" "nexus-exchange/datom" ];
         };
         resolvedDefaultFeatures = [ "datom" "default" ];
       };
@@ -1587,17 +1587,17 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" ];
       };
-      "meta-signal-belief-nexus" = rec {
-        crateName = "meta-signal-belief-nexus";
+      "meta-signal-pattern-nexus" = rec {
+        crateName = "meta-signal-pattern-nexus";
         version = "1.1.0";
         edition = "2021";
         workspace_member = null;
         src = pkgs.fetchgit {
-          url = "https://github.com/LiGoldragon/meta-signal-belief-nexus";
-          rev = "d983bc02f0c631807eeb62eb8c496deccff7f258";
+          url = "https://github.com/LiGoldragon/meta-signal-pattern-nexus";
+          rev = "43b358589101c77e62641db31ee44d2da3ccc363";
           sha256 = "0lwnh35fhnr3rl1c1i0limj9wrgi2pajjxqw4py6cm8y0ri1wxa6";
         };
-        libName = "meta_signal_belief_nexus";
+        libName = "meta_signal_pattern_nexus";
         dependencies = [
           {
             name = "datom-codec";
@@ -1621,8 +1621,8 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "signal-belief-nexus";
-            packageId = "signal-belief-nexus";
+            name = "signal-pattern-nexus";
+            packageId = "signal-pattern-nexus";
             usesDefaultFeatures = false;
           }
           {
@@ -1633,7 +1633,7 @@ rec {
           }
         ];
         features = {
-          "datom" = [ "dep:datom-codec" "dep:protos" "signal/datom" "signal-belief-nexus/datom" "translator/datom" ];
+          "datom" = [ "dep:datom-codec" "dep:protos" "signal/datom" "signal-pattern-nexus/datom" "translator/datom" ];
         };
         resolvedDefaultFeatures = [ "datom" ];
       };
@@ -2596,17 +2596,17 @@ rec {
         };
         resolvedDefaultFeatures = [ "datom" ];
       };
-      "signal-belief-nexus" = rec {
-        crateName = "signal-belief-nexus";
+      "signal-pattern-nexus" = rec {
+        crateName = "signal-pattern-nexus";
         version = "1.0.0";
         edition = "2021";
         workspace_member = null;
         src = pkgs.fetchgit {
-          url = "https://github.com/LiGoldragon/signal-belief-nexus";
-          rev = "c8542d3ac380130190f3d2592b9c1c2f342e3ffa";
+          url = "https://github.com/LiGoldragon/signal-pattern-nexus";
+          rev = "b344379b15484c7dee6515998cd5402df56f0cdb";
           sha256 = "1z9ikhh62hq75pybj57dhc5pwsz9vqdmjy7c82plnk30wi88wvk7";
         };
-        libName = "signal_belief_nexus";
+        libName = "signal_pattern_nexus";
         dependencies = [
           {
             name = "datom-codec";
