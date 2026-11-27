@@ -1,4 +1,4 @@
-//! The Belief Nexus's translator as the serving every translator shares
+//! The Pattern Nexus's translator as the serving every translator shares
 //! (`translator-serving`) runs it: the bodies it writes for its public,
 //! meta and emission lanes, and the deployment it applies at start.
 //!
@@ -16,15 +16,15 @@
 use std::sync::{Arc, Condvar, Mutex, MutexGuard, PoisonError};
 use std::time::{Duration, Instant};
 
-use belief_nexus_wire::{meta_call, public_call, BeliefNexus, ValidAdmission};
-use emission_belief_nexus as emission;
-use meta_signal_belief_nexus as meta;
+use pattern_nexus_wire::{meta_call, public_call, BeliefNexus, ValidAdmission};
+use emission_pattern_nexus as emission;
+use meta_signal_pattern_nexus as meta;
 use nexus_exchange::SocketPaths;
 use nexus_querying::Patience;
 use shared_translator::placement::Place;
 use shared_translator::{Caller, ProcessId, UserId};
 use signal::FrameCapacity;
-use signal_belief_nexus as public;
+use signal_pattern_nexus as public;
 use translator_serving::{
     EmissionAnswering, MetaTranslating, NexusCalling, NexusFailure, PublicTranslating, Settling,
     TextBudgeting, Translator, TranslatorBootstrap, TranslatorError, ValidTextBudget,

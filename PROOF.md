@@ -1,4 +1,4 @@
-# Belief Nexus version 1 proof
+# Pattern Nexus version 1 proof
 
 Run from the repository root with existing Codex and Claude login credentials:
 
@@ -8,7 +8,7 @@ nix flake check -L
 ```
 
 The script builds the default package and the Nix test check, starts
-`belief-pair` from a typed Place, and calls the public meta and ordinary CLIs
+`pattern-pair` from a typed Place, and calls the public meta and ordinary CLIs
 from separate processes. Its fixture has:
 
 - Spirit without placement frontmatter, exercising the stored SystemPrompt
@@ -43,9 +43,9 @@ that ignore worktree changes.
 Observed packaged first-launch witness at belief commit `9a6ead4`:
 
 ```text
-belief-nexus-meta proof 'Configure.{ None RepositoryPolling.200 }'
+pattern-nexus-meta proof 'Configure.{ None RepositoryPolling.200 }'
 Configured.{ RepositoryPolling.200 Nexus 24 Ready }
 
-belief-nexus proof 'Resolve.[]'
+pattern-nexus proof 'Resolve.[]'
 Resolved.{ [] [] }
 ```

@@ -12,7 +12,7 @@ extern crate alloc;
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct Call_Data {
     pub caller: shared_translator::Caller,
-    pub query: signal_belief_nexus::Input,
+    pub query: signal_pattern_nexus::Input,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -24,7 +24,7 @@ pub enum Input {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Output {
-    Answered(signal_belief_nexus::Output),
+    Answered(signal_pattern_nexus::Output),
     Failed(alloc::string::String),
 }
 #[rustfmt::skip]
@@ -33,7 +33,7 @@ pub trait Answering {
     fn call(
         &self,
         call: &Call_Data,
-    ) -> core::result::Result<signal_belief_nexus::Output, Output>;
+    ) -> core::result::Result<signal_pattern_nexus::Output, Output>;
 }
 #[rustfmt::skip]
 pub trait Answerable {

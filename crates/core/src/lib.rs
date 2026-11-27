@@ -4,10 +4,10 @@
 //! consumes complete, immutable source snapshots and produces complete,
 //! immutable workspace images; it never reads a checkout or edits a workspace.
 
-use emission_belief_nexus as emission;
-use meta_signal_belief_nexus as meta;
+use emission_pattern_nexus as emission;
+use meta_signal_pattern_nexus as meta;
 use sha2::{Digest, Sha256};
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 use std::collections::{HashMap, HashSet};
 
 #[derive(Clone, Debug, PartialEq, Eq)]

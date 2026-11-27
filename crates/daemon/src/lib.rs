@@ -5,16 +5,16 @@
 //! repeat-identifiable subscriptions. Its sockets are served by the serving
 //! every Nexus shares (`nexus-serving`), in [`server`].
 
-use belief_nexus_core::{BeliefCore, PublicationContext, RecoveryOutcome, ResolveError, SnapshotChange};
-pub use belief_nexus_wire::meta_call::Call_Data as MetaCall;
-pub use belief_nexus_wire::public_call::Call_Data as PublicCall;
-use belief_nexus_wire::meta_call;
+use pattern_nexus_core::{BeliefCore, PublicationContext, RecoveryOutcome, ResolveError, SnapshotChange};
+pub use pattern_nexus_wire::meta_call::Call_Data as MetaCall;
+pub use pattern_nexus_wire::public_call::Call_Data as PublicCall;
+use pattern_nexus_wire::meta_call;
 use nexus_serving::NexusBootstrap;
-use emission_belief_nexus as emission;
-use meta_signal_belief_nexus as meta;
+use emission_pattern_nexus as emission;
+use meta_signal_pattern_nexus as meta;
 use rkyv::{Archive, Deserialize, Serialize};
 use signal::{ByteViewable, Restorable, Signal, Signalizable};
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 use std::{
     collections::HashMap,
     fs::{self, File, OpenOptions},
@@ -77,7 +77,7 @@ fn rebuild_core(memory: &MemoryImage) -> Result<BeliefCore, ()> {
 }
 
 fn validate_bootstrap(value: &NexusBootstrap) -> Result<(), BootstrapError> {
-    belief_nexus_wire::ValidAdmission::try_from(&value.admission)
+    pattern_nexus_wire::ValidAdmission::try_from(&value.admission)
         .map_err(|_| BootstrapError::InvalidAdmission)?;
     Ok(())
 }
@@ -2411,10 +2411,10 @@ impl PreparesMemory for NexusBootstrap {
         use translator::placement::{Held, ScopedPreparation};
         self.validated(effective_user).map_err(BootstrapError::Refused)?;
         validate_bootstrap(self)?;
-        let expected = self.place.memory_path::<belief_nexus_wire::BeliefNexus>();
+        let expected = self.place.memory_path::<pattern_nexus_wire::BeliefNexus>();
         self.place
             .with_prepared_place(|prepared| {
-                let current = prepared.state().join(belief_nexus_wire::memory_file().0);
+                let current = prepared.state().join(pattern_nexus_wire::memory_file().0);
                 debug_assert_eq!(current, expected);
                 memory_files::MemoryFiles::from_current(current).select()
             })

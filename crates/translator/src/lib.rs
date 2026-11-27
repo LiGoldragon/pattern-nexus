@@ -1,4 +1,4 @@
-//! The Belief Nexus's translator: its own settings, followed from the
+//! The Pattern Nexus's translator: its own settings, followed from the
 //! Nexus's answers, and the external effects it does for the Nexus; the
 //! bodies it writes for the serving every translator shares
 //! (`translator-serving`); and its CLIs on the client end
@@ -21,9 +21,9 @@ pub use server::{BeliefReady, BeliefTranslator};
 /// The settings a place starts with, as its deployment names them: one
 /// datom, a vector of the meta contract's `Set`, read whole within Signal's
 /// own bounds.
-pub fn deployment_sets(text: &str) -> Result<Vec<meta_signal_belief_nexus::Set>, String> {
+pub fn deployment_sets(text: &str) -> Result<Vec<meta_signal_pattern_nexus::Set>, String> {
     use translator_serving::Budgeting;
-    shared_translator::decode::<Vec<meta_signal_belief_nexus::Set>>(
+    shared_translator::decode::<Vec<meta_signal_pattern_nexus::Set>>(
         text,
         &mut translator_serving::ValidTextBudget::MAXIMUM.budget(),
     )
@@ -33,8 +33,8 @@ pub fn deployment_sets(text: &str) -> Result<Vec<meta_signal_belief_nexus::Set>,
 #[cfg(test)]
 mod tests {
     use super::*;
-    use meta_signal_belief_nexus as meta;
-    use signal_belief_nexus as public;
+    use meta_signal_pattern_nexus as meta;
+    use signal_pattern_nexus as public;
 
     #[test]
     fn the_deployment_names_twenty_settings_each_once() {

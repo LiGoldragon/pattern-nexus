@@ -1,4 +1,4 @@
-//! The Belief Nexus's own wire: its call contracts and its name. The exchange
+//! The Pattern Nexus's own wire: its call contracts and its name. The exchange
 //! layer, the lanes and the admission they share are every Nexus's, in
 //! `nexus-exchange`, and the bootstrap a Nexus starts with is every Nexus's,
 //! in `nexus-serving`.
@@ -25,7 +25,7 @@ pub use nexus_exchange::ValidAdmission;
 
 use nexus_exchange::{ComponentName, ComponentTitle, MemoryNaming, Named, SocketNaming};
 
-/// The Belief Nexus, which its sockets and its memory file are named after.
+/// The Pattern Nexus, which its sockets and its memory file are named after.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct BeliefNexus;
 
@@ -35,12 +35,12 @@ impl Named for BeliefNexus {
     }
 
     fn title() -> ComponentTitle {
-        ComponentTitle("Belief Nexus".into())
+        ComponentTitle("Pattern Nexus".into())
     }
 }
 
 /// `belief.sock` and `belief-meta.sock` are the Nexus's own;
-/// `belief-translator.sock` and `belief-meta-translator.sock` its
+/// `pattern-translator.sock` and `belief-meta-translator.sock` its
 /// translator's.
 pub fn socket_names() -> nexus_exchange::SocketNames {
     BeliefNexus::name().socket_names()

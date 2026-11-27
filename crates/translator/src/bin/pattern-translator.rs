@@ -1,4 +1,4 @@
-use belief_nexus_translator::{deployment_sets, BeliefTranslator};
+use pattern_nexus_translator::{deployment_sets, BeliefTranslator};
 use translator_serving::{BootstrapReading, TranslatorBootstrap, TranslatorServing};
 
 /// The translator takes its deployment, the settings its place starts with,
@@ -8,7 +8,7 @@ use translator_serving::{BootstrapReading, TranslatorBootstrap, TranslatorServin
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut arguments = std::env::args().skip(1);
     let (Some(deployment), None) = (arguments.next(), arguments.next()) else {
-        return Err("usage: belief-translator '<deployment>'".into());
+        return Err("usage: pattern-translator '<deployment>'".into());
     };
     let sets = deployment_sets(&deployment)?;
     let bootstrap = TranslatorBootstrap::read_standard_input()?;
@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let deploying = translator.clone();
     std::thread::spawn(move || {
         if let Err(error) = deploying.deploy(sets) {
-            eprintln!("Belief Nexus translator deployment failed: {error}");
+            eprintln!("Pattern Nexus translator deployment failed: {error}");
             std::process::exit(1);
         }
     });

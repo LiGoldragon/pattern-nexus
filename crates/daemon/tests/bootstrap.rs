@@ -1,9 +1,9 @@
 //! The bootstrap every Nexus starts with names a Place, an admission and the paired translator;
-//! the Belief Nexus checks it before it has any effect, and keeps its memory at one path in the
+//! the Pattern Nexus checks it before it has any effect, and keeps its memory at one path in the
 //! Place.
 
-use belief_nexus_daemon::bootstrap::{BootstrapRefusal, Owning, Validating};
-use belief_nexus_wire::BeliefNexus;
+use pattern_nexus_daemon::bootstrap::{BootstrapRefusal, Owning, Validating};
+use pattern_nexus_wire::BeliefNexus;
 use nexus_exchange::{
     Admission, FrameCapacityBytes, FrameDeadlineMilliseconds, MemoryPlacing, RetryDelayMilliseconds,
 };
@@ -53,7 +53,7 @@ fn a_coherent_bootstrap_is_accepted_and_names_one_memory_path() {
 fn the_owner_is_the_login_of_the_paired_translator() {
     assert_eq!(
         bootstrap().owner(),
-        signal_belief_nexus::Owner::Login(translator::UserId(USER))
+        signal_pattern_nexus::Owner::Login(translator::UserId(USER))
     );
 }
 

@@ -6,8 +6,8 @@
 //! the translator changes; the fault is declared in `ethos/translator.ethos`.
 
 use crate::generated::ConfigurationFault;
-use meta_signal_belief_nexus as meta;
-use signal_belief_nexus as public;
+use meta_signal_pattern_nexus as meta;
+use signal_pattern_nexus as public;
 use translator_serving::ValidTextBudget;
 
 fn fault(message: &str) -> ConfigurationFault {

@@ -8,7 +8,7 @@
 //! login it runs as, which the paired translator must run as too.
 
 use nexus_serving::NexusBootstrap;
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 
 /// Why a Nexus bootstrap is refused before it has any effect.
 #[derive(Clone, Debug, PartialEq, Eq)]

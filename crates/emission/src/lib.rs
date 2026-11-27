@@ -11,15 +11,15 @@ extern crate alloc;
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct EmissionAttempt {
-    pub configuration_revision: meta_signal_belief_nexus::ConfigurationRevision,
-    pub translator_configuration: meta_signal_belief_nexus::TranslatorConfiguration,
+    pub configuration_revision: meta_signal_pattern_nexus::ConfigurationRevision,
+    pub translator_configuration: meta_signal_pattern_nexus::TranslatorConfiguration,
     pub input: Input,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct EmissionAttemptOutcome {
-    pub configuration_revision: meta_signal_belief_nexus::ConfigurationRevision,
+    pub configuration_revision: meta_signal_pattern_nexus::ConfigurationRevision,
     pub output: Output,
 }
 #[rustfmt::skip]
@@ -41,62 +41,62 @@ pub struct AbsolutePath(pub alloc::string::String);
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ModuleSource {
-    pub module_name: signal_belief_nexus::ModuleName,
-    pub relative_path: signal_belief_nexus::RelativePath,
-    pub placement_option: core::option::Option<signal_belief_nexus::Placement>,
+    pub module_name: signal_pattern_nexus::ModuleName,
+    pub relative_path: signal_pattern_nexus::RelativePath,
+    pub placement_option: core::option::Option<signal_pattern_nexus::Placement>,
     pub content: Content,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct SourceSnapshot {
-    pub repository: signal_belief_nexus::Repository,
-    pub source_revision: signal_belief_nexus::SourceRevision,
+    pub repository: signal_pattern_nexus::Repository,
+    pub source_revision: signal_pattern_nexus::SourceRevision,
     pub module_source_vector: alloc::vec::Vec<ModuleSource>,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct SkillFile {
-    pub relative_path: signal_belief_nexus::RelativePath,
+    pub relative_path: signal_pattern_nexus::RelativePath,
     pub content: Content,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct WorkspaceImage {
-    pub harness: signal_belief_nexus::Harness,
-    pub layout: meta_signal_belief_nexus::Layout,
+    pub harness: signal_pattern_nexus::Harness,
+    pub layout: meta_signal_pattern_nexus::Layout,
     pub content: Content,
     pub skill_file_vector: alloc::vec::Vec<SkillFile>,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct RepositoryStates(pub alloc::vec::Vec<signal_belief_nexus::RepositoryState>);
+pub struct RepositoryStates(pub alloc::vec::Vec<signal_pattern_nexus::RepositoryState>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct FoundModules(pub alloc::vec::Vec<signal_belief_nexus::ModuleName>);
+pub struct FoundModules(pub alloc::vec::Vec<signal_pattern_nexus::ModuleName>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct MissingModules(pub alloc::vec::Vec<signal_belief_nexus::ModuleName>);
+pub struct MissingModules(pub alloc::vec::Vec<signal_pattern_nexus::ModuleName>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PriorPublication(
-    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_pattern_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct IntendedPublication(pub signal_belief_nexus::PublicationRevision);
+pub struct IntendedPublication(pub signal_pattern_nexus::PublicationRevision);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationManifest {
-    pub generation_id: signal_belief_nexus::GenerationId,
+    pub generation_id: signal_pattern_nexus::GenerationId,
     pub intended_publication: IntendedPublication,
     pub repository_states: RepositoryStates,
     pub found_modules: FoundModules,
@@ -106,43 +106,43 @@ pub struct PublicationManifest {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct Publication {
-    pub workspace: signal_belief_nexus::Workspace,
-    pub generation_id: signal_belief_nexus::GenerationId,
+    pub workspace: signal_pattern_nexus::Workspace,
+    pub generation_id: signal_pattern_nexus::GenerationId,
     pub prior_publication: PriorPublication,
     pub intended_publication: IntendedPublication,
     pub workspace_image: WorkspaceImage,
     pub repository_states: RepositoryStates,
     pub found_modules: FoundModules,
     pub missing_modules: MissingModules,
-    pub retention_policy: meta_signal_belief_nexus::RetentionPolicy,
+    pub retention_policy: meta_signal_pattern_nexus::RetentionPolicy,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationIdentity {
-    pub generation_id: signal_belief_nexus::GenerationId,
-    pub publication_revision: signal_belief_nexus::PublicationRevision,
+    pub generation_id: signal_pattern_nexus::GenerationId,
+    pub publication_revision: signal_pattern_nexus::PublicationRevision,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationState {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_identity: PublicationIdentity,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct InspectionRequest {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_identity: PublicationIdentity,
-    pub layout: meta_signal_belief_nexus::Layout,
+    pub layout: meta_signal_pattern_nexus::Layout,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationInspection {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_identity_option: core::option::Option<PublicationIdentity>,
     pub publication_manifest_option: core::option::Option<PublicationManifest>,
 }
@@ -150,9 +150,9 @@ pub struct PublicationInspection {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct CleanupRequest {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_identity: PublicationIdentity,
-    pub layout: meta_signal_belief_nexus::Layout,
+    pub layout: meta_signal_pattern_nexus::Layout,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -165,7 +165,7 @@ pub enum CleanupOutcome {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct CleanupState {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_identity: PublicationIdentity,
     pub cleanup_outcome: CleanupOutcome,
 }
@@ -199,8 +199,8 @@ pub enum InvalidPlacement {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct InvalidModule {
-    pub module_name: signal_belief_nexus::ModuleName,
-    pub relative_path: signal_belief_nexus::RelativePath,
+    pub module_name: signal_pattern_nexus::ModuleName,
+    pub relative_path: signal_pattern_nexus::RelativePath,
     pub invalid_placement: InvalidPlacement,
 }
 #[rustfmt::skip]
@@ -211,13 +211,13 @@ pub enum SourceEvidence {
     MainUnavailable,
     RevisionUnavailable,
     InvalidModule(InvalidModule),
-    Translator(signal_belief_nexus::Diagnostic),
+    Translator(signal_pattern_nexus::Diagnostic),
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct SourceRefusal {
-    pub repository: signal_belief_nexus::Repository,
+    pub repository: signal_pattern_nexus::Repository,
     pub source_operation: SourceOperation,
     pub source_evidence: SourceEvidence,
 }
@@ -240,13 +240,13 @@ pub struct BoundaryEvidence {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ExpectedRevision(
-    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_pattern_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ObservedRevision(
-    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_pattern_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -267,13 +267,13 @@ pub enum PublicationEvidence {
     SettingsConflict,
     InvalidSettings,
     PermissionDenied,
-    Translator(signal_belief_nexus::Diagnostic),
+    Translator(signal_pattern_nexus::Diagnostic),
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationRefusal {
-    pub workspace: signal_belief_nexus::Workspace,
+    pub workspace: signal_pattern_nexus::Workspace,
     pub publication_operation: PublicationOperation,
     pub publication_evidence: PublicationEvidence,
 }
@@ -288,7 +288,7 @@ pub enum EmissionRefusal {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Input {
-    Snapshot(signal_belief_nexus::Repository),
+    Snapshot(signal_pattern_nexus::Repository),
     Publish(Publication),
     InspectPublication(InspectionRequest),
     Clean(CleanupRequest),
@@ -301,7 +301,7 @@ pub enum Output {
     Published(PublicationState),
     Inspected(PublicationInspection),
     Cleaned(CleanupState),
-    CleanupRefused(signal_belief_nexus::FileFailure),
+    CleanupRefused(signal_pattern_nexus::FileFailure),
     EmissionRefused(EmissionRefusal),
 }
 #[rustfmt::skip]
@@ -309,7 +309,7 @@ pub enum Output {
 pub trait Answering {
     fn snapshot(
         &self,
-        repository: &signal_belief_nexus::Repository,
+        repository: &signal_pattern_nexus::Repository,
     ) -> core::result::Result<SourceSnapshot, Output>;
     fn publish(
         &self,
@@ -401,7 +401,7 @@ impl FileEmission {
         }
     }
 
-    fn snapshot(&self, repository: signal_belief_nexus::Repository) -> Output {
+    fn snapshot(&self, repository: signal_pattern_nexus::Repository) -> Output {
         match self.snapshot_result(repository.clone()) {
             Ok(snapshot) => Output::Snapshotted(snapshot),
             Err(refusal) => Output::EmissionRefused(EmissionRefusal::Source(refusal)),
@@ -410,7 +410,7 @@ impl FileEmission {
 
     fn snapshot_result(
         &self,
-        repository: signal_belief_nexus::Repository,
+        repository: signal_pattern_nexus::Repository,
     ) -> Result<SourceSnapshot, SourceRefusal> {
         let root = PathBuf::from(&(repository.0).0);
         if !root.is_dir() {
@@ -482,7 +482,7 @@ impl FileEmission {
                 source_operation: SourceOperation::ReadingTree,
                 source_evidence: SourceEvidence::RevisionUnavailable,
             })?;
-            let relative_path = signal_belief_nexus::RelativePath(path.into());
+            let relative_path = signal_pattern_nexus::RelativePath(path.into());
             let placement_option = placement_from_frontmatter(&content, &module_name, &relative_path)
                 .map_err(|invalid| SourceRefusal {
                     repository: repository.clone(),
@@ -499,16 +499,16 @@ impl FileEmission {
         modules.sort_by(|left, right| (left.relative_path.0).cmp(&right.relative_path.0));
         Ok(SourceSnapshot {
             repository,
-            source_revision: signal_belief_nexus::SourceRevision(revision),
+            source_revision: signal_pattern_nexus::SourceRevision(revision),
             module_source_vector: modules,
         })
     }
 
-    fn git<const N: usize>(&self, root: &Path, args: [&str; N]) -> Result<Vec<u8>, signal_belief_nexus::Diagnostic> {
+    fn git<const N: usize>(&self, root: &Path, args: [&str; N]) -> Result<Vec<u8>, signal_pattern_nexus::Diagnostic> {
         self.git_bytes(root, args.map(OsStr::new))
     }
 
-    fn git_bytes<I, S>(&self, root: &Path, args: I) -> Result<Vec<u8>, signal_belief_nexus::Diagnostic>
+    fn git_bytes<I, S>(&self, root: &Path, args: I) -> Result<Vec<u8>, signal_pattern_nexus::Diagnostic>
     where
         I: IntoIterator<Item = S>,
         S: AsRef<OsStr>,
@@ -526,10 +526,10 @@ impl FileEmission {
         }
     }
 
-    fn diagnostic(&self, status: Option<i64>, text: String) -> signal_belief_nexus::Diagnostic {
-        signal_belief_nexus::Diagnostic {
-            executable_path: signal_belief_nexus::ExecutablePath(self.git_executable.to_string_lossy().into_owned()),
-            exit_status_option: status.map(signal_belief_nexus::ExitStatus),
+    fn diagnostic(&self, status: Option<i64>, text: String) -> signal_pattern_nexus::Diagnostic {
+        signal_pattern_nexus::Diagnostic {
+            executable_path: signal_pattern_nexus::ExecutablePath(self.git_executable.to_string_lossy().into_owned()),
+            exit_status_option: status.map(signal_pattern_nexus::ExitStatus),
             string: text,
         }
     }
@@ -635,9 +635,9 @@ impl FileEmission {
 
 fn placement_from_frontmatter(
     content: &str,
-    module_name: &signal_belief_nexus::ModuleName,
-    relative_path: &signal_belief_nexus::RelativePath,
-) -> Result<Option<signal_belief_nexus::Placement>, InvalidModule> {
+    module_name: &signal_pattern_nexus::ModuleName,
+    relative_path: &signal_pattern_nexus::RelativePath,
+) -> Result<Option<signal_pattern_nexus::Placement>, InvalidModule> {
     let mut lines = content.lines();
     if lines.next() != Some("---") { return Ok(None); }
     let Some(frontmatter_length) = lines.clone().position(|line| line == "---") else {
@@ -653,8 +653,8 @@ fn placement_from_frontmatter(
         }
         let value = raw.trim();
         let placement = match value {
-            "system-prompt" => signal_belief_nexus::Placement::SystemPrompt,
-            "skills" => signal_belief_nexus::Placement::Skills,
+            "system-prompt" => signal_pattern_nexus::Placement::SystemPrompt,
+            "skills" => signal_pattern_nexus::Placement::Skills,
             "" => return Err(InvalidModule { module_name: module_name.clone(), relative_path: relative_path.clone(), invalid_placement: InvalidPlacement::NonScalar }),
             value if matches!(value.as_bytes().first(), Some(b'[' | b'{' | b'|' | b'>')) => return Err(InvalidModule { module_name: module_name.clone(), relative_path: relative_path.clone(), invalid_placement: InvalidPlacement::NonScalar }),
             value => return Err(InvalidModule { module_name: module_name.clone(), relative_path: relative_path.clone(), invalid_placement: InvalidPlacement::Unknown(value.into()) }),
@@ -693,7 +693,7 @@ impl PublicationManifest {
 }
 
 #[derive(Clone, Debug, PartialEq, Eq)]
-struct LegacyContentDirectory(signal_belief_nexus::GenerationId);
+struct LegacyContentDirectory(signal_pattern_nexus::GenerationId);
 
 #[derive(Clone, Debug, PartialEq, Eq)]
 struct PublicationDirectory(PublicationIdentity);
@@ -722,7 +722,7 @@ struct PublicationPaths {
 }
 
 impl PublicationPaths {
-    fn new(workspace: &Path, layout: &meta_signal_belief_nexus::Layout) -> Result<Self, PublicationEvidence> {
+    fn new(workspace: &Path, layout: &meta_signal_pattern_nexus::Layout) -> Result<Self, PublicationEvidence> {
         if !workspace.is_dir()
             || fs::symlink_metadata(workspace).map(|metadata| metadata.file_type().is_symlink()).unwrap_or(true)
         {
@@ -756,15 +756,15 @@ impl PublicationPaths {
             }
         }
         match publication.workspace_image.harness {
-            signal_belief_nexus::Harness::Codex => if let Ok(metadata) = fs::symlink_metadata(&self.settings) {
+            signal_pattern_nexus::Harness::Codex => if let Ok(metadata) = fs::symlink_metadata(&self.settings) {
                 if !metadata.is_file() || metadata.file_type().is_symlink() { return Err(boundary(&self.workspace, &self.settings)); }
             },
-            signal_belief_nexus::Harness::Claude => if let Ok(metadata) = fs::symlink_metadata(&self.settings) {
+            signal_pattern_nexus::Harness::Claude => if let Ok(metadata) = fs::symlink_metadata(&self.settings) {
                 if !metadata.file_type().is_symlink() || fs::read_link(&self.settings).ok().as_deref() != Some(self.current.join(&self.instructions).as_path()) { return Err(boundary(&self.workspace, &self.settings)); }
             },
         }
         if let Ok(metadata) = fs::symlink_metadata(&self.skills_link) {
-            let expected = match publication.workspace_image.harness { signal_belief_nexus::Harness::Codex => PathBuf::from("../.belief/current/skills"), signal_belief_nexus::Harness::Claude => self.current.join("skills") };
+            let expected = match publication.workspace_image.harness { signal_pattern_nexus::Harness::Codex => PathBuf::from("../.belief/current/skills"), signal_pattern_nexus::Harness::Claude => self.current.join("skills") };
             if !metadata.file_type().is_symlink() || fs::read_link(&self.skills_link).ok().as_deref() != Some(expected.as_path()) {
                 return Err(boundary(&self.workspace, &self.skills_link));
             }
@@ -789,14 +789,14 @@ impl PublicationPaths {
         Ok(())
     }
 
-    fn validate_generation(&self, generation: &signal_belief_nexus::GenerationId) -> Result<(), PublicationEvidence> {
+    fn validate_generation(&self, generation: &signal_pattern_nexus::GenerationId) -> Result<(), PublicationEvidence> {
         if generation.0.is_empty() || generation.0.contains('/') || generation.0.contains('\\') || generation.0 == "." || generation.0 == ".." {
             return Err(boundary(&self.generations, &self.generations.join(&generation.0)));
         }
         Ok(())
     }
 
-    fn legacy_directory(&self, generation: &signal_belief_nexus::GenerationId) -> Result<PathBuf, PublicationEvidence> {
+    fn legacy_directory(&self, generation: &signal_pattern_nexus::GenerationId) -> Result<PathBuf, PublicationEvidence> {
         self.validate_generation(generation)?;
         Ok(self.generations.join(&generation.0))
     }
@@ -842,7 +842,7 @@ impl PublicationPaths {
     fn resolve_publication(
         &self,
         identity: &PublicationIdentity,
-        workspace: &signal_belief_nexus::Workspace,
+        workspace: &signal_pattern_nexus::Workspace,
     ) -> Result<Option<ResolvedPublication>, PublicationRefusal> {
         let staging = |evidence| inspection_refusal(workspace, PublicationOperation::StagingGeneration, evidence);
         let inspecting = |evidence| inspection_refusal(workspace, PublicationOperation::InspectingManifest, evidence);
@@ -877,11 +877,11 @@ impl PublicationPaths {
     fn prepare_capability_links(&self, publication: &Publication) -> Result<(), PublicationEvidence> {
         if self.skills_link.exists() || fs::symlink_metadata(&self.skills_link).is_ok() {
         } else {
-            let target = match publication.workspace_image.harness { signal_belief_nexus::Harness::Codex => PathBuf::from("../.belief/current/skills"), signal_belief_nexus::Harness::Claude => self.current.join("skills") };
+            let target = match publication.workspace_image.harness { signal_pattern_nexus::Harness::Codex => PathBuf::from("../.belief/current/skills"), signal_pattern_nexus::Harness::Claude => self.current.join("skills") };
             symlink(target, &self.skills_link).map_err(|error| io_evidence(&self.skills_link, error))?;
             sync_parent(&self.skills_link).map_err(|error| io_evidence(&self.skills_link, error))?;
         }
-        if matches!(publication.workspace_image.harness, signal_belief_nexus::Harness::Claude)
+        if matches!(publication.workspace_image.harness, signal_pattern_nexus::Harness::Claude)
             && !self.settings.exists() && fs::symlink_metadata(&self.settings).is_err() {
             symlink(self.current.join(&self.instructions), &self.settings).map_err(|error| io_evidence(&self.settings, error))?;
             sync_parent(&self.settings).map_err(|error| io_evidence(&self.settings, error))?;
@@ -895,7 +895,7 @@ impl PublicationPaths {
     }
 
     fn rendered_settings(&self, publication: &Publication) -> Result<Option<String>, PublicationEvidence> {
-        if matches!(publication.workspace_image.harness, signal_belief_nexus::Harness::Claude) { return Ok(None); }
+        if matches!(publication.workspace_image.harness, signal_pattern_nexus::Harness::Claude) { return Ok(None); }
         let existing = match fs::read_to_string(&self.settings) {
             Ok(text) => text,
             Err(error) if error.kind() == std::io::ErrorKind::NotFound => String::new(),
@@ -906,7 +906,7 @@ impl PublicationPaths {
         let key = &publication.workspace_image.layout.instructions_setting.0;
         if key.is_empty() { return Err(PublicationEvidence::InvalidSettings); }
         let value = self.current.join(&self.instructions).to_string_lossy().into_owned();
-        let marker = format!("{key}_belief_nexus_managed");
+        let marker = format!("{key}_pattern_nexus_managed");
         match document.get(key) {
             None => {
                 if document.get(&marker).is_some() { return Err(PublicationEvidence::SettingsConflict); }
@@ -992,7 +992,7 @@ impl PublicationPaths {
 
     fn inspect_untrusted(
         &self,
-        workspace: &signal_belief_nexus::Workspace,
+        workspace: &signal_pattern_nexus::Workspace,
     ) -> Result<(Option<PublicationIdentity>, Option<PublicationManifest>), PublicationRefusal> {
         let target = match fs::read_link(&self.current) {
             Ok(target) => target,
@@ -1015,7 +1015,7 @@ impl PublicationPaths {
     fn cleanup(
         &self,
         target: &PublicationIdentity,
-        workspace: &signal_belief_nexus::Workspace,
+        workspace: &signal_pattern_nexus::Workspace,
     ) -> Result<CleanupOutcome, PublicationEvidence> {
         let Some(resolved) = self.resolve_publication(target, workspace).map_err(|refusal| refusal.publication_evidence)? else {
             return Ok(CleanupOutcome::AlreadyAbsent);
@@ -1030,43 +1030,43 @@ impl PublicationPaths {
     }
 }
 
-fn cleanup_failure(workspace: &signal_belief_nexus::Workspace, evidence: PublicationEvidence) -> signal_belief_nexus::FileFailure {
-    use signal_belief_nexus::{FileEvidence, FileOperation, RelativePath};
+fn cleanup_failure(workspace: &signal_pattern_nexus::Workspace, evidence: PublicationEvidence) -> signal_pattern_nexus::FileFailure {
+    use signal_pattern_nexus::{FileEvidence, FileOperation, RelativePath};
     let file_evidence = match evidence {
-        PublicationEvidence::OutsideBoundary(value) => FileEvidence::OutsideBoundary(signal_belief_nexus::OutsideBoundary_Data {
+        PublicationEvidence::OutsideBoundary(value) => FileEvidence::OutsideBoundary(signal_pattern_nexus::OutsideBoundary_Data {
             first_relative_path: RelativePath(value.boundary_root.0.0),
             second_relative_path: RelativePath(value.boundary_candidate.0.0),
         }),
         PublicationEvidence::DestinationUnavailable(value) => FileEvidence::MissingRequired(RelativePath(value.0)),
-        PublicationEvidence::PriorRevisionMismatch(value) => FileEvidence::Conflict(signal_belief_nexus::Conflict_Data {
+        PublicationEvidence::PriorRevisionMismatch(value) => FileEvidence::Conflict(signal_pattern_nexus::Conflict_Data {
             first_publication_revision_option: value.expected_revision.0,
             second_publication_revision_option: value.observed_revision.0,
         }),
-        PublicationEvidence::OwnedPointerMismatch | PublicationEvidence::ManifestMismatch => FileEvidence::Conflict(signal_belief_nexus::Conflict_Data {
+        PublicationEvidence::OwnedPointerMismatch | PublicationEvidence::ManifestMismatch => FileEvidence::Conflict(signal_pattern_nexus::Conflict_Data {
             first_publication_revision_option: None, second_publication_revision_option: None,
         }),
-        PublicationEvidence::SettingsConflict | PublicationEvidence::InvalidSettings => FileEvidence::Conflict(signal_belief_nexus::Conflict_Data {
+        PublicationEvidence::SettingsConflict | PublicationEvidence::InvalidSettings => FileEvidence::Conflict(signal_pattern_nexus::Conflict_Data {
             first_publication_revision_option: None, second_publication_revision_option: None,
         }),
         PublicationEvidence::PermissionDenied => FileEvidence::PermissionDenied,
         PublicationEvidence::Translator(value) => FileEvidence::Translator(value),
     };
-    signal_belief_nexus::FileFailure { workspace: workspace.clone(), file_operation: FileOperation::Cleaning, file_evidence }
+    signal_pattern_nexus::FileFailure { workspace: workspace.clone(), file_operation: FileOperation::Cleaning, file_evidence }
 }
 
-fn module_name_from_path(path: &str) -> Option<signal_belief_nexus::ModuleName> {
+fn module_name_from_path(path: &str) -> Option<signal_pattern_nexus::ModuleName> {
     let mut parts = path.split('/');
     let kind = match parts.next()? {
-        "spirit" => signal_belief_nexus::Kind::Spirit,
-        "intent" => signal_belief_nexus::Kind::Intent,
-        "vision" => signal_belief_nexus::Kind::Vision,
-        "knowledge" => signal_belief_nexus::Kind::Knowledge,
-        "role" => signal_belief_nexus::Kind::Role,
+        "spirit" => signal_pattern_nexus::Kind::Spirit,
+        "intent" => signal_pattern_nexus::Kind::Intent,
+        "vision" => signal_pattern_nexus::Kind::Vision,
+        "knowledge" => signal_pattern_nexus::Kind::Knowledge,
+        "role" => signal_pattern_nexus::Kind::Role,
         _ => return None,
     };
     let file = parts.next()?;
     if parts.next().is_some() || !file.ends_with(".md") || file.len() == 3 { return None; }
-    Some(signal_belief_nexus::ModuleName { kind, subject: signal_belief_nexus::Subject(file[..file.len() - 3].into()) })
+    Some(signal_pattern_nexus::ModuleName { kind, subject: signal_pattern_nexus::Subject(file[..file.len() - 3].into()) })
 }
 
 fn is_git_object_id(value: &str) -> bool {
@@ -1119,7 +1119,7 @@ fn publication_refusal(publication: &Publication, operation: PublicationOperatio
 }
 
 fn inspection_refusal(
-    workspace: &signal_belief_nexus::Workspace,
+    workspace: &signal_pattern_nexus::Workspace,
     operation: PublicationOperation,
     evidence: PublicationEvidence,
 ) -> PublicationRefusal {
@@ -1161,26 +1161,26 @@ fn read_manifest(path: &Path) -> Result<PublicationManifest, ()> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use meta_signal_belief_nexus::{
+    use meta_signal_pattern_nexus::{
         CurrentLink, GenerationsDirectory, InstructionsFile, InstructionsSetting, Layout,
         OwnedRoot, SettingsFile, SkillsDirectory,
     };
 
     #[test]
     fn frontmatter_placement_is_exact_typed_and_optional() {
-        let name = signal_belief_nexus::ModuleName { kind: signal_belief_nexus::Kind::Vision, subject: signal_belief_nexus::Subject("nexus".into()) };
-        let path = signal_belief_nexus::RelativePath("vision/nexus.md".into());
+        let name = signal_pattern_nexus::ModuleName { kind: signal_pattern_nexus::Kind::Vision, subject: signal_pattern_nexus::Subject("nexus".into()) };
+        let path = signal_pattern_nexus::RelativePath("vision/nexus.md".into());
         assert_eq!(placement_from_frontmatter("body", &name, &path).unwrap(), None);
         assert_eq!(placement_from_frontmatter("---\nbody\nplacement: skills", &name, &path).unwrap(), None);
-        assert_eq!(placement_from_frontmatter("---\nplacement: system-prompt\n---\nbody", &name, &path).unwrap(), Some(signal_belief_nexus::Placement::SystemPrompt));
-        assert_eq!(placement_from_frontmatter("---\nplacement: skills\n---\nbody", &name, &path).unwrap(), Some(signal_belief_nexus::Placement::Skills));
+        assert_eq!(placement_from_frontmatter("---\nplacement: system-prompt\n---\nbody", &name, &path).unwrap(), Some(signal_pattern_nexus::Placement::SystemPrompt));
+        assert_eq!(placement_from_frontmatter("---\nplacement: skills\n---\nbody", &name, &path).unwrap(), Some(signal_pattern_nexus::Placement::Skills));
         assert_eq!(placement_from_frontmatter("---\n---\nplacement: skills", &name, &path).unwrap(), None);
         assert!(matches!(placement_from_frontmatter("---\nplacement: elsewhere\n---", &name, &path).unwrap_err().invalid_placement, InvalidPlacement::Unknown(_)));
         assert!(matches!(placement_from_frontmatter("---\nplacement: [skills]\n---", &name, &path).unwrap_err().invalid_placement, InvalidPlacement::NonScalar));
         assert!(matches!(placement_from_frontmatter("---\nplacement: skills\nplacement: system-prompt\n---", &name, &path).unwrap_err().invalid_placement, InvalidPlacement::Duplicate));
     }
     use signal::{ByteViewable, Restorable, Signal, Signalizable};
-    use signal_belief_nexus::{
+    use signal_pattern_nexus::{
         GenerationId, Kind, ModuleName, PublicationRevision, RelativePath, Repository,
         RepositoryPath, RepositoryState, SourceRevision, Subject, Workspace, WorkspacePath,
     };
@@ -1216,14 +1216,14 @@ mod tests {
             generation_id: GenerationId(generation.into()),
             prior_publication: PriorPublication(prior.map(PublicationRevision)),
             intended_publication: IntendedPublication(PublicationRevision(intended)),
-            workspace_image: WorkspaceImage { harness: signal_belief_nexus::Harness::Codex, layout: layout(), content: Content(instruction.into()), skill_file_vector: skills },
+            workspace_image: WorkspaceImage { harness: signal_pattern_nexus::Harness::Codex, layout: layout(), content: Content(instruction.into()), skill_file_vector: skills },
             repository_states: RepositoryStates(vec![RepositoryState {
                 repository: Repository(RepositoryPath("/source".into())),
                 source_revision: SourceRevision(format!("revision-{intended}")),
             }]),
             found_modules: FoundModules(vec![ModuleName { kind: Kind::Vision, subject: Subject("nexus".into()) }]),
             missing_modules: MissingModules(vec![],),
-            retention_policy: meta_signal_belief_nexus::RetentionPolicy::KeepAll,
+            retention_policy: meta_signal_pattern_nexus::RetentionPolicy::KeepAll,
         }
     }
 
@@ -1288,11 +1288,11 @@ mod tests {
             generation_id: GenerationId("sha256:generation".into()),
             prior_publication: PriorPublication(Some(PublicationRevision(3))),
             intended_publication: IntendedPublication(PublicationRevision(4)),
-            workspace_image: WorkspaceImage { harness: signal_belief_nexus::Harness::Codex, layout: layout(), content: Content("instructions".into()), skill_file_vector: vec![] },
+            workspace_image: WorkspaceImage { harness: signal_pattern_nexus::Harness::Codex, layout: layout(), content: Content("instructions".into()), skill_file_vector: vec![] },
             repository_states: RepositoryStates(vec![]),
             found_modules: FoundModules(vec![]),
             missing_modules: MissingModules(vec![ModuleName { kind: Kind::Vision, subject: Subject("missing".into()) }]),
-            retention_policy: meta_signal_belief_nexus::RetentionPolicy::KeepAll,
+            retention_policy: meta_signal_pattern_nexus::RetentionPolicy::KeepAll,
         };
         let query = Input::Publish(publication);
         let archived = query.signalize().expect("archive emission");
@@ -1547,7 +1547,7 @@ mod tests {
             Output::EmissionRefused(EmissionRefusal::Source(SourceRefusal {
                 repository: refused,
                 source_operation: SourceOperation::ReadingMain,
-                source_evidence: SourceEvidence::Translator(signal_belief_nexus::Diagnostic {
+                source_evidence: SourceEvidence::Translator(signal_pattern_nexus::Diagnostic {
                     executable_path,
                     exit_status_option: None,
                     ..
@@ -1618,7 +1618,7 @@ mod tests {
             workspace.path(), "claude-one", None, 1, "claude instructions",
             vec![SkillFile { relative_path: RelativePath("witness/SKILL.md".into()), content: Content("claude skill".into()) }],
         );
-        first.workspace_image.harness = signal_belief_nexus::Harness::Claude;
+        first.workspace_image.harness = signal_pattern_nexus::Harness::Claude;
         first.workspace_image.layout = claude_layout();
         assert!(matches!(emission.execute(Input::Publish(first)), Output::Published(_)));
         assert_eq!(fs::read_link(workspace.path().join("CLAUDE.md")).unwrap(), workspace.path().join(".belief/current/CLAUDE.md"));
@@ -1630,7 +1630,7 @@ mod tests {
         let foreign = tempfile::tempdir().unwrap();
         fs::write(foreign.path().join("CLAUDE.md"), "foreign").unwrap();
         let mut refused = publication(foreign.path(), "claude-one", None, 1, "ours", vec![]);
-        refused.workspace_image.harness = signal_belief_nexus::Harness::Claude;
+        refused.workspace_image.harness = signal_pattern_nexus::Harness::Claude;
         refused.workspace_image.layout = claude_layout();
         assert!(matches!(emission.execute(Input::Publish(refused)), Output::EmissionRefused(_)));
         assert_eq!(fs::read_to_string(foreign.path().join("CLAUDE.md")).unwrap(), "foreign");
@@ -1640,7 +1640,7 @@ mod tests {
         fs::create_dir_all(foreign_skills.path().join(".claude/skills")).unwrap();
         fs::write(foreign_skills.path().join(".claude/skills/keep"), "foreign").unwrap();
         let mut refused = publication(foreign_skills.path(), "claude-one", None, 1, "ours", vec![]);
-        refused.workspace_image.harness = signal_belief_nexus::Harness::Claude;
+        refused.workspace_image.harness = signal_pattern_nexus::Harness::Claude;
         refused.workspace_image.layout = claude_layout();
         assert!(matches!(emission.execute(Input::Publish(refused)), Output::EmissionRefused(_)));
         assert_eq!(fs::read_to_string(foreign_skills.path().join(".claude/skills/keep")).unwrap(), "foreign");
@@ -1739,8 +1739,8 @@ mod tests {
             workspace: Workspace(WorkspacePath(workspace.path().to_string_lossy().into_owned())),
             publication_identity: PublicationIdentity { generation_id: GenerationId("second".into()), publication_revision: PublicationRevision(2) }, layout: layout(),
         };
-        assert!(matches!(emission.execute(Input::Clean(current)), Output::CleanupRefused(signal_belief_nexus::FileFailure {
-            file_operation: signal_belief_nexus::FileOperation::Cleaning, ..
+        assert!(matches!(emission.execute(Input::Clean(current)), Output::CleanupRefused(signal_pattern_nexus::FileFailure {
+            file_operation: signal_pattern_nexus::FileOperation::Cleaning, ..
         })));
         assert!(workspace.path().join(".belief/generations").join(publication_component_for("second", 2)).is_dir());
     }

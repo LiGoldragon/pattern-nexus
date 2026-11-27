@@ -1,6 +1,6 @@
 [package]
-name = "belief-nexus-wire"
-version = "1.1.0"
+name = "pattern-nexus-wire"
+version = "2.0.0"
 edition.workspace = true
 rust-version.workspace = true
 license = "MIT"
@@ -11,8 +11,8 @@ default = []
 datom = [
   "dep:datom-codec",
   "dep:protos",
-  "signal-belief-nexus/datom",
-  "meta-signal-belief-nexus/datom",
+  "signal-pattern-nexus/datom",
+  "meta-signal-pattern-nexus/datom",
   "shared-translator/datom",
   "nexus-exchange/datom",
 ]
@@ -22,8 +22,8 @@ datom-codec = { git = "https://github.com/LiGoldragon/datom-codec", rev = "09a05
 protos = { git = "https://github.com/LiGoldragon/protos", rev = "c93b598", optional = true }
 rkyv = { version = "0.8", default-features = false, features = ["std", "bytecheck", "little_endian", "pointer_width_32", "unaligned"] }
 signal.workspace = true
-signal-belief-nexus.workspace = true
-meta-signal-belief-nexus.workspace = true
+signal-pattern-nexus.workspace = true
+meta-signal-pattern-nexus.workspace = true
 shared-translator.workspace = true
 nexus-exchange.workspace = true
 

@@ -1,6 +1,6 @@
 //! The real pair as a place starts it, in an isolated temporary tree: the shared pair launcher
 //! starts the built Nexus and the built translator with its deployment, and the CLIs take their
-//! datom alone, their place read from `nexus/belief.datom` under the configuration home.
+//! datom alone, their place read from `nexus/pattern.datom` under the configuration home.
 //!
 //! The same Inputs are answered with the same Outputs: the deployment's twenty settings and the
 //! paired Nexus's two sockets are applied first, so the first Configure of the place is answered
@@ -8,8 +8,8 @@
 //! Opened frame and then each Changed frame; a refused Subscribe prints its refusal and ends.
 //! The state survives a restart of the pair, whose deployment the Nexus already holds.
 
-use meta_signal_belief_nexus as meta;
-use signal_belief_nexus as public;
+use meta_signal_pattern_nexus as meta;
+use signal_pattern_nexus as public;
 use std::io::{BufRead, BufReader};
 use std::os::unix::fs::PermissionsExt;
 use std::path::{Path, PathBuf};
@@ -21,10 +21,10 @@ const PLACE: &str = "pairtest";
 
 fn nexus_daemon() -> PathBuf {
     let path = PathBuf::from(
-        std::env::var_os("BELIEF_NEXUS_DAEMON")
-            .expect("BELIEF_NEXUS_DAEMON names the built belief-nexus-daemon executable"),
+        std::env::var_os("PATTERN_NEXUS_DAEMON")
+            .expect("PATTERN_NEXUS_DAEMON names the built pattern-nexus-daemon executable"),
     );
-    assert!(path.exists(), "BELIEF_NEXUS_DAEMON names an existing executable: {}", path.display());
+    assert!(path.exists(), "PATTERN_NEXUS_DAEMON names an existing executable: {}", path.display());
     path
 }
 
@@ -58,7 +58,7 @@ impl Tree {
     fn new() -> Self {
         let tree = Self { root: tempfile::tempdir().unwrap() };
         std::fs::create_dir_all(tree.root.path().join("config/nexus")).unwrap();
-        std::fs::write(tree.root.path().join("config/nexus/belief.datom"), format!("{{ {PLACE} }}")).unwrap();
+        std::fs::write(tree.root.path().join("config/nexus/pattern.datom"), format!("{{ {PLACE} }}")).unwrap();
         tree
     }
 
@@ -77,10 +77,10 @@ impl Tree {
     /// The translator executable the launcher starts: the built translator, given the deployment.
     fn deployed_translator(&self) -> PathBuf {
         let deployment = include_str!("../deployment.datom").replace("@git@", &git().to_string_lossy());
-        let script = self.path().join("belief-translator-deployed");
+        let script = self.path().join("pattern-translator-deployed");
         std::fs::write(
             &script,
-            format!("#!/bin/sh\nexec '{}' '{}'\n", env!("CARGO_BIN_EXE_belief-translator"), deployment),
+            format!("#!/bin/sh\nexec '{}' '{}'\n", env!("CARGO_BIN_EXE_pattern-translator"), deployment),
         )
         .unwrap();
         std::fs::set_permissions(&script, std::fs::Permissions::from_mode(0o755)).unwrap();
@@ -89,14 +89,14 @@ impl Tree {
 
     fn launch(&self) -> Child {
         let place = format!("{{ {PLACE} «{}» «{}» }}", self.runtime().display(), self.state().display());
-        let child = Command::new(env!("CARGO_BIN_EXE_belief-pair"))
+        let child = Command::new(env!("CARGO_BIN_EXE_pattern-pair"))
             .arg(place)
             .arg(nexus_daemon())
             .arg(self.deployed_translator())
             .args(["70000", "8388608", "25", "100000", "64"])
             .spawn()
             .unwrap();
-        for socket in ["belief.sock", "belief-meta.sock", "belief-translator.sock", "belief-meta-translator.sock"] {
+        for socket in ["belief.sock", "belief-meta.sock", "pattern-translator.sock", "belief-meta-translator.sock"] {
             let path = self.runtime().join(socket);
             until(&format!("{socket} to appear"), || path.exists());
         }
@@ -126,13 +126,13 @@ impl Tree {
     }
 
     fn meta(&self, datom: &str) -> meta::Output {
-        let mut answers = self.answers(env!("CARGO_BIN_EXE_belief-nexus-meta"), datom);
+        let mut answers = self.answers(env!("CARGO_BIN_EXE_pattern-nexus-meta"), datom);
         assert_eq!(answers.len(), 1, "one meta answer: {answers:?}");
         answers.remove(0)
     }
 
     fn public(&self, datom: &str) -> Vec<public::Output> {
-        self.answers(env!("CARGO_BIN_EXE_belief-nexus"), datom)
+        self.answers(env!("CARGO_BIN_EXE_pattern-nexus"), datom)
     }
 }
 
@@ -237,7 +237,7 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
     assert!(matches!(furnished.as_slice(), [public::Output::Furnished(_)]), "{furnished:?}");
 
     let mut subscriber = tree
-        .cli(env!("CARGO_BIN_EXE_belief-nexus"))
+        .cli(env!("CARGO_BIN_EXE_pattern-nexus"))
         .arg("Subscribe")
         .stdout(Stdio::piped())
         .spawn()
@@ -245,7 +245,7 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
     let mut frames = BufReader::new(subscriber.stdout.take().unwrap()).lines();
     let mut frame = || -> public::Output {
         let answer = next_answer(&mut frames).expect("a frame");
-        eprintln!("belief-nexus 'Subscribe' => {answer:?}");
+        eprintln!("pattern-nexus 'Subscribe' => {answer:?}");
         answer
     };
     let public::Output::Subscribed(signal::Frame::Opened(public::Workspaces(opened))) = frame() else {
@@ -273,7 +273,7 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
     subscriber.kill().unwrap();
     subscriber.wait().unwrap();
     stop(launcher);
-    for socket in ["belief.sock", "belief-meta.sock", "belief-translator.sock", "belief-meta-translator.sock"] {
+    for socket in ["belief.sock", "belief-meta.sock", "pattern-translator.sock", "belief-meta-translator.sock"] {
         let path = tree.runtime().join(socket);
         if path.exists() {
             std::fs::remove_file(path).unwrap();
@@ -298,10 +298,10 @@ fn the_pair_answers_as_before_streams_its_frames_and_ends_a_refused_subscribe() 
 #[test]
 fn a_cli_with_no_configuration_sends_nothing_and_names_the_file() {
     let tree = Tree::new();
-    std::fs::remove_file(tree.path().join("config/nexus/belief.datom")).unwrap();
-    let output = tree.cli(env!("CARGO_BIN_EXE_belief-nexus")).arg("Resolve.[]").output().unwrap();
+    std::fs::remove_file(tree.path().join("config/nexus/pattern.datom")).unwrap();
+    let output = tree.cli(env!("CARGO_BIN_EXE_pattern-nexus")).arg("Resolve.[]").output().unwrap();
     assert_eq!(output.status.code(), Some(2));
     let refusal = String::from_utf8_lossy(&output.stderr);
     assert!(refusal.starts_with("Missing."), "{refusal}");
-    assert!(refusal.contains("nexus/belief.datom"), "{refusal}");
+    assert!(refusal.contains("nexus/pattern.datom"), "{refusal}");
 }

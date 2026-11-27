@@ -4,14 +4,14 @@
 //! answered once and ended, direct peers are admitted by their configured binding, and the state
 //! survives a restart.
 
-use belief_nexus_wire::{meta_call, public_call, BeliefNexus};
-use meta_signal_belief_nexus as meta;
+use pattern_nexus_wire::{meta_call, public_call, BeliefNexus};
+use meta_signal_pattern_nexus as meta;
 use nexus_exchange::lane::{Frame, Kind, Lane, LaneReading, LaneWriting};
 use nexus_exchange::ExchangeError;
 use nexus_querying::{ExchangeFollowing, Patience, Querying, QueryingConnection};
 use nexus_serving::{InstanceId, NexusBootstrap};
 use signal::{ByteViewable, Delivery, FrameBody, FrameWriting, Restorable, Signal, Signalizable};
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 use std::os::unix::net::{UnixListener, UnixStream};
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
@@ -104,15 +104,15 @@ fn configure(socket: &Path, revision: i64, set: meta::Set) -> meta::Output {
 fn serve_emissions(socket: &Path) {
     let listener = UnixListener::bind(socket).unwrap();
     thread::spawn(move || {
-        let executor = emission_belief_nexus::FileEmission::new(PathBuf::from("git")).unwrap();
+        let executor = emission_pattern_nexus::FileEmission::new(PathBuf::from("git")).unwrap();
         for stream in listener.incoming() {
             let Ok(mut stream) = stream else { return };
             let request = stream.read_lane_frame(signal::MAXIMUM_SIGNAL_BYTES).unwrap();
-            let attempt = Signal::<emission_belief_nexus::EmissionAttempt>::from(request.payload)
+            let attempt = Signal::<emission_pattern_nexus::EmissionAttempt>::from(request.payload)
                 .restore()
                 .unwrap();
-            let outcome = emission_belief_nexus::EmissionAnswer::Attempted(
-                emission_belief_nexus::EmissionAttemptOutcome {
+            let outcome = emission_pattern_nexus::EmissionAnswer::Attempted(
+                emission_pattern_nexus::EmissionAttemptOutcome {
                     configuration_revision: attempt.configuration_revision,
                     output: executor.execute(attempt.input),
                 },
@@ -158,7 +158,7 @@ fn bootstrap(place: translator::Place) -> NexusBootstrap {
 }
 
 fn spawn_nexus(bootstrap: &NexusBootstrap) -> Child {
-    let mut child = Command::new(env!("CARGO_BIN_EXE_belief-nexus-daemon"))
+    let mut child = Command::new(env!("CARGO_BIN_EXE_pattern-nexus-daemon"))
         .stdin(Stdio::piped())
         .spawn()
         .unwrap();
@@ -246,7 +246,7 @@ fn repository_fixture(repository: &Path) {
     std::fs::create_dir_all(repository.join("spirit")).unwrap();
     std::fs::create_dir_all(repository.join("knowledge")).unwrap();
     std::fs::write(repository.join("spirit/core.md"), "The exact Claude bundle witness is CLAUDE_BUNDLE_WITNESS.\n").unwrap();
-    std::fs::write(repository.join("knowledge/witness.md"), "---\nname: knowledge-witness\ndescription: Use for the Belief Nexus Claude proof.\n---\nState the exact skill witness CLAUDE_SKILL_WITNESS.\n").unwrap();
+    std::fs::write(repository.join("knowledge/witness.md"), "---\nname: knowledge-witness\ndescription: Use for the Pattern Nexus Claude proof.\n---\nState the exact skill witness CLAUDE_SKILL_WITNESS.\n").unwrap();
     for args in [["init", "-b", "main"].as_slice(), ["config", "user.email", "belief@example.test"].as_slice(), ["config", "user.name", "Belief Test"].as_slice(), ["add", "."].as_slice(), ["commit", "-m", "fixture"].as_slice()] {
         assert!(Command::new("git").arg("-C").arg(repository).args(args).status().unwrap().success());
     }

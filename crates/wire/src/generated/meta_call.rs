@@ -12,7 +12,7 @@ extern crate alloc;
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct Call_Data {
     pub caller: shared_translator::Caller,
-    pub query: meta_signal_belief_nexus::Input,
+    pub query: meta_signal_pattern_nexus::Input,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -25,8 +25,8 @@ pub enum Input {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum Output {
-    Answered(meta_signal_belief_nexus::Output),
-    Restored(meta_signal_belief_nexus::TranslatorConfiguration),
+    Answered(meta_signal_pattern_nexus::Output),
+    Restored(meta_signal_pattern_nexus::TranslatorConfiguration),
     Failed(alloc::string::String),
 }
 #[rustfmt::skip]
@@ -35,10 +35,10 @@ pub trait Answering {
     fn call(
         &self,
         call: &Call_Data,
-    ) -> core::result::Result<meta_signal_belief_nexus::Output, Output>;
+    ) -> core::result::Result<meta_signal_pattern_nexus::Output, Output>;
     fn restore_translator_configuration(
         &self,
-    ) -> core::result::Result<meta_signal_belief_nexus::TranslatorConfiguration, Output>;
+    ) -> core::result::Result<meta_signal_pattern_nexus::TranslatorConfiguration, Output>;
 }
 #[rustfmt::skip]
 pub trait Answerable {

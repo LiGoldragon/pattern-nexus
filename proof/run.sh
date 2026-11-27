@@ -16,7 +16,7 @@ trap cleanup EXIT
 export XDG_RUNTIME_DIR="$base/run"
 export XDG_CONFIG_HOME="$base/config"
 mkdir -p "$XDG_CONFIG_HOME/nexus"
-printf '%s\n' '{ proof }' > "$XDG_CONFIG_HOME/nexus/belief.datom"
+printf '%s\n' '{ proof }' > "$XDG_CONFIG_HOME/nexus/pattern.datom"
 runtime="$XDG_RUNTIME_DIR/nexus/proof"
 state="$base/state"
 repository="$base/repository"
@@ -35,7 +35,7 @@ git -C "$repository" commit -m fixture >/dev/null
 git -C "$codex_workspace" init -b main >/dev/null
 git -C "$claude_workspace" init -b main >/dev/null
 
-"$pkg/bin/belief-pair" "{ proof «$runtime» «$state» }" >"$base/pair.log" 2>&1 &
+"$pkg/bin/pattern-pair" "{ proof «$runtime» «$state» }" >"$base/pair.log" 2>&1 &
 pair_pid=$!
 for _ in $(seq 1 200); do
   kill -0 "$pair_pid" 2>/dev/null || { cat "$base/pair.log" >&2; exit 1; }
@@ -43,13 +43,13 @@ for _ in $(seq 1 200); do
   sleep 0.05
 done
 
-meta="$("$pkg/bin/belief-nexus-meta" 'Configure.{ None RepositoryPolling.200 }')"
+meta="$("$pkg/bin/pattern-nexus-meta" 'Configure.{ None RepositoryPolling.200 }')"
 [[ "$meta" == Configured.*Ready* ]]
-registered="$("$pkg/bin/belief-nexus" "Register.«$repository»")"
+registered="$("$pkg/bin/pattern-nexus" "Register.«$repository»")"
 [[ "$registered" == Registered.* ]]
 modules='[ { Spirit core } { Knowledge witness } { Vision override } ]'
-codex_furnished="$("$pkg/bin/belief-nexus" "Furnish.{ «$codex_workspace» Codex $modules }")"
-claude_furnished="$("$pkg/bin/belief-nexus" "Furnish.{ «$claude_workspace» Claude $modules }")"
+codex_furnished="$("$pkg/bin/pattern-nexus" "Furnish.{ «$codex_workspace» Codex $modules }")"
+claude_furnished="$("$pkg/bin/pattern-nexus" "Furnish.{ «$claude_workspace» Claude $modules }")"
 for result in "$codex_furnished" "$claude_furnished"; do
   [[ "$result" == Furnished.* ]]
   [[ "$result" == *'{ Spirit core }'* && "$result" == *'{ Knowledge witness }'* && "$result" == *'{ Vision override }'* ]]

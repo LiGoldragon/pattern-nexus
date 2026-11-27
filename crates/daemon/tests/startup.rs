@@ -3,15 +3,15 @@
 //! selected at the prepared Place under its exclusion before a socket is bound or the store is
 //! opened.
 
-use belief_nexus_daemon::{
+use pattern_nexus_daemon::{
     effective_user, BootstrapError, Daemon, DaemonBootstrap, EmissionPort, FileMemory, MemoryImage,
     MemoryStore, PreparesMemory,
 };
 use nexus_serving::{InstanceId, NexusBootstrap};
-use emission_belief_nexus as emission;
-use meta_signal_belief_nexus as meta;
+use emission_pattern_nexus as emission;
+use meta_signal_pattern_nexus as meta;
 use signal::{ByteViewable, FrameBody, FrameCapacity, FrameWriting, Signalizable};
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
 use std::sync::atomic::{AtomicUsize, Ordering};
@@ -71,7 +71,7 @@ fn bootstrap(place: translator::Place) -> NexusBootstrap {
     }
 }
 
-/// The memory file every Belief Nexus keeps, and the legacy name it is renamed from.
+/// The memory file every Pattern Nexus keeps, and the legacy name it is renamed from.
 const MEMORY: &str = "belief.memory";
 const LEGACY_MEMORY: &str = "belief.sema";
 
@@ -82,7 +82,7 @@ fn standard(tree: &Tree) -> NexusBootstrap {
 fn image_bytes(path: &Path) -> Vec<u8> {
     let image = MemoryImage {
         owner: wire::Owner::Login(user()),
-        configuration: belief_nexus_daemon::Configuration {
+        configuration: pattern_nexus_daemon::Configuration {
             revision: meta::ConfigurationRevision(0),
             repository_polling: None,
             subscriber_capacity: None,
@@ -335,7 +335,7 @@ fn an_invalid_bootstrap_has_no_effect_through_the_library_either() {
 // The real daemon process.
 
 fn spawn() -> Child {
-    Command::new(env!("CARGO_BIN_EXE_belief-nexus-daemon"))
+    Command::new(env!("CARGO_BIN_EXE_pattern-nexus-daemon"))
         .stdin(Stdio::piped())
         .stdout(Stdio::null())
         .stderr(Stdio::null())
@@ -429,7 +429,7 @@ fn a_valid_direct_bootstrap_does_prepare_and_bind() {
     assert!(tree.path().join("custom-state").join(MEMORY).exists());
 }
 
-/// The published 0.3.0 `NexusBootstrap`, field for field, from meta-signal-belief-nexus at
+/// The published 0.3.0 `NexusBootstrap`, field for field, from meta-signal-pattern-nexus at
 /// `9c90892` src/lib.rs. One representative retained old frame, sent where the bootstrap belongs.
 mod previous {
     #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize)]
@@ -458,7 +458,7 @@ mod previous {
         pub process_id: translator::ProcessId,
     }
     #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize)]
-    pub struct BootstrapOwner(pub signal_belief_nexus::Owner);
+    pub struct BootstrapOwner(pub signal_pattern_nexus::Owner);
     #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize)]
     pub struct NexusBootstrap {
         pub ordinary_socket: OrdinarySocket,

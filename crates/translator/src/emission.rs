@@ -3,8 +3,8 @@
 
 use crate::configuration::TranslatorConfiguration;
 use crate::generated::ConfigurationFault;
-use emission_belief_nexus as emission;
-use emission_belief_nexus::FileEmission;
+use emission_pattern_nexus as emission;
+use emission_pattern_nexus::FileEmission;
 use nexus_exchange::{LaneFailure, LaneFault};
 
 /// One emission attempt, answered.
@@ -54,8 +54,8 @@ impl Executing for emission::EmissionAttempt {
 mod tests {
     use super::*;
     use crate::configuration::snapshot_for_test;
-    use meta_signal_belief_nexus as meta;
-    use signal_belief_nexus as public;
+    use meta_signal_pattern_nexus as meta;
+    use signal_pattern_nexus as public;
 
     fn missing_repository() -> emission::Input {
         emission::Input::Snapshot(public::Repository(public::RepositoryPath(

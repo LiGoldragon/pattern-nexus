@@ -1,6 +1,6 @@
 [package]
-name = "belief-nexus-daemon"
-version = "1.1.0"
+name = "pattern-nexus-daemon"
+version = "2.0.0"
 edition.workspace = true
 rust-version.workspace = true
 license = "MIT"
@@ -9,11 +9,11 @@ license = "MIT"
 path = "src/lib.rs"
 
 [dependencies]
-belief-nexus-core = { path = "../core" }
-belief-nexus-wire = { path = "../wire" }
-emission-belief-nexus = { path = "../emission" }
-meta-signal-belief-nexus.workspace = true
-signal-belief-nexus.workspace = true
+pattern-nexus-core = { path = "../core" }
+pattern-nexus-wire = { path = "../wire" }
+emission-pattern-nexus = { path = "../emission" }
+meta-signal-pattern-nexus.workspace = true
+signal-pattern-nexus.workspace = true
 signal.workspace = true
 nexus-exchange.workspace = true
 nexus-serving.workspace = true

@@ -8,5 +8,5 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         bootstrap
     };
     nix::unistd::close(0)?;
-    belief_nexus_daemon::server::run(bootstrap)
+    pattern_nexus_daemon::server::run(bootstrap)
 }

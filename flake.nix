@@ -1,5 +1,5 @@
 {
-  description = "Belief Nexus version 1";
+  description = "Pattern Nexus version 2";
 
   inputs = {
     base.url = "github:LiGoldragon/build-base";
@@ -38,19 +38,19 @@
             inherit workspace;
             inherit (composed) binaries;
           };
-          daemon = member "belief-nexus-daemon";
-          translatorBuild = member "belief-nexus-translator";
-          nexus = pkgs.runCommand "belief-nexus-daemon" { } ''
+          daemon = member "pattern-nexus-daemon";
+          translatorBuild = member "pattern-nexus-translator";
+          nexus = pkgs.runCommand "pattern-nexus-daemon" { } ''
             mkdir -p "$out/bin"
-            cp ${daemon}/bin/belief-nexus-daemon "$out/bin/belief-nexus-daemon"
+            cp ${daemon}/bin/pattern-nexus-daemon "$out/bin/pattern-nexus-daemon"
           '';
-          translator = pkgs.runCommand "belief-translator" { } ''
+          translator = pkgs.runCommand "pattern-translator" { } ''
             mkdir -p "$out/bin"
-            cp ${translatorBuild}/bin/belief-translator "$out/bin/belief-translator"
+            cp ${translatorBuild}/bin/pattern-translator "$out/bin/pattern-translator"
           '';
-          internal = pkgs.runCommand "belief-nexus-internal" { } ''
+          internal = pkgs.runCommand "pattern-nexus-internal" { } ''
             mkdir -p "$out/libexec"
-            cp ${translatorBuild}/bin/belief-pair "$out/libexec/belief-pair"
+            cp ${translatorBuild}/bin/pattern-pair "$out/libexec/pattern-pair"
           '';
           # The settings a place starts with, which the translator applies
           # through the Nexus at its first start: crates/translator/deployment.datom,
@@ -58,30 +58,30 @@
           deployment = builtins.replaceStrings [ "@git@" ] [ "${pkgs.git}/bin/git" ] (
             builtins.readFile ./crates/translator/deployment.datom
           );
-          deployedTranslator = pkgs.writeShellScript "belief-translator-deployed" ''
-            exec ${translator}/bin/belief-translator ${lib.escapeShellArg deployment}
+          deployedTranslator = pkgs.writeShellScript "pattern-translator-deployed" ''
+            exec ${translator}/bin/pattern-translator ${lib.escapeShellArg deployment}
           '';
           # The pair launcher every translator shares: the place, the Nexus,
           # the translator, the admission (frame deadline, frame capacity,
           # retry delay) and the text budget the translator starts with.
-          pair = pkgs.writeShellScriptBin "belief-pair" ''
-            if [[ $# -ne 1 ]]; then echo "usage: belief-pair '<Place>'" >&2; exit 64; fi
-            exec ${internal}/libexec/belief-pair "$1" \
-              ${nexus}/bin/belief-nexus-daemon \
+          pair = pkgs.writeShellScriptBin "pattern-pair" ''
+            if [[ $# -ne 1 ]]; then echo "usage: pattern-pair '<Place>'" >&2; exit 64; fi
+            exec ${internal}/libexec/pattern-pair "$1" \
+              ${nexus}/bin/pattern-nexus-daemon \
               ${deployedTranslator} \
               70000 8388608 25 100000 64
           '';
           # Each CLI takes its datom alone; its place is the one
-          # nexus/belief.datom names under the configuration home.
-          cli = pkgs.runCommand "belief-nexus-cli" { } ''
+          # nexus/pattern.datom names under the configuration home.
+          cli = pkgs.runCommand "pattern-nexus-cli" { } ''
             mkdir -p "$out/bin"
-            cp ${translatorBuild}/bin/belief-nexus "$out/bin/belief-nexus"
+            cp ${translatorBuild}/bin/pattern-nexus "$out/bin/pattern-nexus"
           '';
-          meta-cli = pkgs.runCommand "belief-nexus-meta-cli" { } ''
+          meta-cli = pkgs.runCommand "pattern-nexus-meta-cli" { } ''
             mkdir -p "$out/bin"
-            cp ${translatorBuild}/bin/belief-nexus-meta "$out/bin/belief-nexus-meta"
+            cp ${translatorBuild}/bin/pattern-nexus-meta "$out/bin/pattern-nexus-meta"
           '';
-          default = pkgs.symlinkJoin { name = "belief-nexus-v1"; paths = [ nexus translator pair cli meta-cli ]; };
+          default = pkgs.symlinkJoin { name = "pattern-nexus-v2"; paths = [ nexus translator pair cli meta-cli ]; };
         in
         {
           packages = { inherit nexus translator internal pair cli meta-cli default; };
@@ -102,9 +102,9 @@
                 passthru = { inherit tests; };
                 nativeBuildInputs = [ pkgs.git ];
               }
-              // lib.optionalAttrs (name == "belief-nexus-translator") {
+              // lib.optionalAttrs (name == "pattern-nexus-translator") {
                 # The translator's pair test launches the built daemon.
-                BELIEF_NEXUS_DAEMON = "${workspaces.${pkgs.stdenv.hostPlatform.system}.packages.nexus}/bin/belief-nexus-daemon";
+                PATTERN_NEXUS_DAEMON = "${workspaces.${pkgs.stdenv.hostPlatform.system}.packages.nexus}/bin/pattern-nexus-daemon";
               })
               ''
                 cp -r ${tests.src} "$NIX_BUILD_TOP/source"

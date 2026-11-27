@@ -1,9 +1,9 @@
-# belief-nexus
+# pattern-nexus
 
-Belief Nexus version 1 registers belief repositories, resolves typed module
+Pattern Nexus version 2 registers belief repositories, resolves typed module
 names, and atomically furnishes Codex and Claude workspaces. Its ordinary and
-meta contracts live in `signal-belief-nexus` and
-`meta-signal-belief-nexus`.
+meta contracts live in `signal-pattern-nexus` and
+`meta-signal-pattern-nexus`.
 
 A registered repository is read at its committed `refs/heads/main`. `Resolve`
 returns found and missing names; missing is partial success. `Furnish` returns
@@ -30,18 +30,18 @@ owns datom text, Git snapshots, and filesystem publication. Public commands
 are:
 
 ```sh
-belief-pair '{ <place-name> «<runtime-directory>» «<state-directory>» }'
-belief-nexus '<ordinary datom>'
-belief-nexus-meta '<meta datom>'
+pattern-pair '{ <place-name> «<runtime-directory>» «<state-directory>» }'
+pattern-nexus '<ordinary datom>'
+pattern-nexus-meta '<meta datom>'
 ```
 
-`belief-pair` takes exactly one typed `Place` and runs the pair launcher
+`pattern-pair` takes exactly one typed `Place` and runs the pair launcher
 every translator shares; its Nix package supplies the Nexus, the translator
 with its deployment (`crates/translator/deployment.datom`), the admission and
 the text budget. Each CLI takes its datom alone: its place is the one
-`$XDG_CONFIG_HOME/nexus/belief.datom` (`~/.config/nexus/belief.datom`) names,
+`$XDG_CONFIG_HOME/nexus/pattern.datom` (`~/.config/nexus/pattern.datom`) names,
 `{ <place-name> }`, resolved under `$XDG_RUNTIME_DIR/nexus/`. Socket names are
-`belief.sock`, `belief-meta.sock`, `belief-translator.sock`, and
+`belief.sock`, `belief-meta.sock`, `pattern-translator.sock`, and
 `belief-meta-translator.sock`; Memory is `belief.memory` under State.
 
 Text calls are owned by `Owner.Login(UserId)`, so separate CLI processes of the

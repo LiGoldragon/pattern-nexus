@@ -1,6 +1,6 @@
 [package]
-name = "belief-nexus-translator"
-version = "1.1.0"
+name = "pattern-nexus-translator"
+version = "2.0.0"
 edition.workspace = true
 rust-version.workspace = true
 license = "MIT"
@@ -15,14 +15,14 @@ default = []
 datom = []
 
 [dependencies]
-belief-nexus-wire = { path = "../wire", features = ["datom"] }
-emission-belief-nexus = { path = "../emission", features = ["datom"] }
+pattern-nexus-wire = { path = "../wire", features = ["datom"] }
+emission-pattern-nexus = { path = "../emission", features = ["datom"] }
 datom-codec = { git = "https://github.com/LiGoldragon/datom-codec", rev = "09a0526" }
 protos = { git = "https://github.com/LiGoldragon/protos", rev = "c93b598" }
 rkyv = { version = "0.8", default-features = false, features = ["std", "bytecheck", "little_endian", "pointer_width_32", "unaligned"] }
 signal.workspace = true
-signal-belief-nexus = { workspace = true, features = ["datom"] }
-meta-signal-belief-nexus = { workspace = true, features = ["datom"] }
+signal-pattern-nexus = { workspace = true, features = ["datom"] }
+meta-signal-pattern-nexus = { workspace = true, features = ["datom"] }
 shared-translator = { workspace = true, features = ["text"] }
 nexus-exchange = { workspace = true, features = ["datom"] }
 nexus-querying.workspace = true

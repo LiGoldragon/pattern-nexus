@@ -1,4 +1,4 @@
-//! The Belief Nexus's sockets, served by the serving every Nexus shares
+//! The Pattern Nexus's sockets, served by the serving every Nexus shares
 //! (`nexus-serving`).
 //!
 //! The meta socket answers the paired translator, each exchange once, its
@@ -13,19 +13,19 @@
 use crate::{
     Daemon, DaemonBootstrap, EmissionPort, Event, FileMemory, Frame, PublicCall, Subscription,
 };
-use belief_nexus_wire::{meta_call, public_call, BeliefNexus, ValidAdmission};
-use emission_belief_nexus as emission;
-use meta_signal_belief_nexus as meta;
+use pattern_nexus_wire::{meta_call, public_call, BeliefNexus, ValidAdmission};
+use emission_pattern_nexus as emission;
+use meta_signal_pattern_nexus as meta;
 use nexus_serving::{
     ConnectionServing, EmissionLane, Emitting, Listeners, Listening, MetaAnswering, MetaServing,
     NexusBootstrap, PeerAdmitting, PublicServing, Reply, SubscriptionClosing, TransportBounded,
 };
-use signal_belief_nexus as wire;
+use signal_pattern_nexus as wire;
 use std::convert::Infallible;
 use std::sync::Arc;
 use std::time::Duration;
 
-/// The Belief Nexus's four socket paths in its place.
+/// The Pattern Nexus's four socket paths in its place.
 pub type SocketPaths = nexus_serving::SocketPaths<BeliefNexus>;
 
 /// One public connection, served with the Dispatcher's bodies.
@@ -307,7 +307,7 @@ impl Dispatcher {
     /// The actor ended, and no answer can be given: the Nexus ends, and its
     /// pair with it.
     fn ended(error: impl std::fmt::Display) -> ! {
-        eprintln!("Belief Nexus actor ended: {error}");
+        eprintln!("Pattern Nexus actor ended: {error}");
         std::process::exit(1)
     }
 }
@@ -343,7 +343,7 @@ impl PublicServing for Dispatcher {
                 || call.caller.process_id != caller.process_id)
         {
             eprintln!(
-                "Belief Nexus public request failed: declared caller does not match live peer"
+                "Pattern Nexus public request failed: declared caller does not match live peer"
             );
             return None;
         }
@@ -493,7 +493,7 @@ pub fn run(bootstrap: NexusBootstrap) -> Result<(), Box<dyn std::error::Error>> 
                 ));
             }
             Err(error) => {
-                eprintln!("Belief Nexus meta listener failed permanently: {error}");
+                eprintln!("Pattern Nexus meta listener failed permanently: {error}");
                 std::process::exit(1);
             }
         }
@@ -508,7 +508,7 @@ pub fn run(bootstrap: NexusBootstrap) -> Result<(), Box<dyn std::error::Error>> 
     loop {
         let accepted = listeners
             .accept_public(&Admitting)
-            .map_err(|error| format!("Belief Nexus public listener failed permanently: {error}"))?;
+            .map_err(|error| format!("Pattern Nexus public listener failed permanently: {error}"))?;
         runtime.spawn(PublicConnection::serve(
             accepted.stream,
             accepted.authority,
