@@ -387,7 +387,7 @@ dependencies = [
 [[package]]
 name = "meta-signal-pattern-nexus"
 version = "2.0.0"
-source = "git+https://github.com/LiGoldragon/meta-signal-pattern-nexus?rev=43b358589101c77e62641db31ee44d2da3ccc363#43b358589101c77e62641db31ee44d2da3ccc363"
+source = "git+https://github.com/LiGoldragon/meta-signal-pattern-nexus?rev=cf2825f84d005ec40bce1b16307491a837e66ee0#cf2825f84d005ec40bce1b16307491a837e66ee0"
 dependencies = [
  "datom-codec",
  "protos",
@@ -755,7 +755,7 @@ dependencies = [
 [[package]]
 name = "signal-pattern-nexus"
 version = "2.0.0"
-source = "git+https://github.com/LiGoldragon/signal-pattern-nexus?rev=b344379b15484c7dee6515998cd5402df56f0cdb#b344379b15484c7dee6515998cd5402df56f0cdb"
+source = "git+https://github.com/LiGoldragon/signal-pattern-nexus?rev=19efd56669ff710770883967bf76e1eba7fdd113#19efd56669ff710770883967bf76e1eba7fdd113"
 dependencies = [
  "datom-codec",
  "protos",

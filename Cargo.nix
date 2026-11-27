@@ -1291,8 +1291,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/LiGoldragon/meta-signal-pattern-nexus";
-          rev = "43b358589101c77e62641db31ee44d2da3ccc363";
-          sha256 = "1n8lszvjp6v6krpscnh1mv237k05vkh5zr8y3jwwyzmzbcylhl46";
+          rev = "cf2825f84d005ec40bce1b16307491a837e66ee0";
+          sha256 = "176i88ar6fycz52nqkpy2mrzg0qdxd2j71x8jg47hwc0z087l3lq";
         };
         libName = "meta_signal_pattern_nexus";
         dependencies = [
@@ -2625,8 +2625,8 @@ rec {
         workspace_member = null;
         src = pkgs.fetchgit {
           url = "https://github.com/LiGoldragon/signal-pattern-nexus";
-          rev = "b344379b15484c7dee6515998cd5402df56f0cdb";
-          sha256 = "00f0a0s4hag03xzjqsk0p3n4lzgdz6j6gl8152lw0rlv1c7f0a5j";
+          rev = "19efd56669ff710770883967bf76e1eba7fdd113";
+          sha256 = "175gax8qxm8az8yimw6xhi45kppav87lvswj4y9mh6bnx3jhcq97";
         };
         libName = "signal_pattern_nexus";
         dependencies = [

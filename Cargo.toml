@@ -13,8 +13,8 @@ edition = "2021"
 rust-version = "1.89"
 
 [workspace.dependencies]
-signal-pattern-nexus = { git = "https://github.com/LiGoldragon/signal-pattern-nexus", rev = "b344379b15484c7dee6515998cd5402df56f0cdb", default-features = false }
-meta-signal-pattern-nexus = { git = "https://github.com/LiGoldragon/meta-signal-pattern-nexus", rev = "43b358589101c77e62641db31ee44d2da3ccc363", default-features = false }
+signal-pattern-nexus = { git = "https://github.com/LiGoldragon/signal-pattern-nexus", rev = "19efd56669ff710770883967bf76e1eba7fdd113", default-features = false }
+meta-signal-pattern-nexus = { git = "https://github.com/LiGoldragon/meta-signal-pattern-nexus", rev = "cf2825f84d005ec40bce1b16307491a837e66ee0", default-features = false }
 signal = { git = "https://github.com/LiGoldragon/signal", rev = "4f5cbb9", default-features = false }
 nexus-exchange = { git = "https://github.com/LiGoldragon/nexus", rev = "a4bc0113c10c34ec9d92cde2d650eca9324144db", default-features = false }
 nexus-querying = { git = "https://github.com/LiGoldragon/nexus", rev = "a4bc0113c10c34ec9d92cde2d650eca9324144db", default-features = false }
