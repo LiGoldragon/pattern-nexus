@@ -21,12 +21,12 @@ Signal
   Content.String                                      ; types
   AbsolutePath.String
   ModuleSource.{ ModuleName RelativePath Option<Placement> Content }
-  SourceSnapshot.{ Repository SourceRevision Vector<ModuleSource> }
+  SourceSnapshot.{ Repository SourceRevision ⟦ ModuleSource ⟧ }
   SkillFile.{ RelativePath Content }
-  WorkspaceImage.{ Harness Layout Content Vector<SkillFile> }
-  RepositoryStates.Vector<RepositoryState>
-  FoundModules.Vector<ModuleName>
-  MissingModules.Vector<ModuleName>
+  WorkspaceImage.{ Harness Layout Content ⟦ SkillFile ⟧ }
+  RepositoryStates.⟦ RepositoryState ⟧
+  FoundModules.⟦ ModuleName ⟧
+  MissingModules.⟦ ModuleName ⟧
   PriorPublication.Option<PublicationRevision>
   IntendedPublication.PublicationRevision
   PublicationManifest.{ GenerationId IntendedPublication RepositoryStates

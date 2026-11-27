@@ -2,8 +2,11 @@
     dead_code,
     non_camel_case_types,
     non_snake_case,
+    unused_extern_crates,
     clippy::type_complexity
 )]
+#[rustfmt::skip]
+extern crate alloc;
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
@@ -29,18 +32,18 @@ pub enum EmissionAnswer {
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct Content(pub String);
+pub struct Content(pub alloc::string::String);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct AbsolutePath(pub String);
+pub struct AbsolutePath(pub alloc::string::String);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ModuleSource {
     pub module_name: signal_belief_nexus::ModuleName,
     pub relative_path: signal_belief_nexus::RelativePath,
-    pub placement_option: std::option::Option<signal_belief_nexus::Placement>,
+    pub placement_option: core::option::Option<signal_belief_nexus::Placement>,
     pub content: Content,
 }
 #[rustfmt::skip]
@@ -49,7 +52,7 @@ pub struct ModuleSource {
 pub struct SourceSnapshot {
     pub repository: signal_belief_nexus::Repository,
     pub source_revision: signal_belief_nexus::SourceRevision,
-    pub module_source_vector: std::vec::Vec<ModuleSource>,
+    pub module_source_vector: alloc::vec::Vec<ModuleSource>,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -65,25 +68,25 @@ pub struct WorkspaceImage {
     pub harness: signal_belief_nexus::Harness,
     pub layout: meta_signal_belief_nexus::Layout,
     pub content: Content,
-    pub skill_file_vector: std::vec::Vec<SkillFile>,
+    pub skill_file_vector: alloc::vec::Vec<SkillFile>,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct RepositoryStates(pub std::vec::Vec<signal_belief_nexus::RepositoryState>);
+pub struct RepositoryStates(pub alloc::vec::Vec<signal_belief_nexus::RepositoryState>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct FoundModules(pub std::vec::Vec<signal_belief_nexus::ModuleName>);
+pub struct FoundModules(pub alloc::vec::Vec<signal_belief_nexus::ModuleName>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
-pub struct MissingModules(pub std::vec::Vec<signal_belief_nexus::ModuleName>);
+pub struct MissingModules(pub alloc::vec::Vec<signal_belief_nexus::ModuleName>);
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PriorPublication(
-    pub std::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -140,8 +143,8 @@ pub struct InspectionRequest {
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct PublicationInspection {
     pub workspace: signal_belief_nexus::Workspace,
-    pub publication_identity_option: std::option::Option<PublicationIdentity>,
-    pub publication_manifest_option: std::option::Option<PublicationManifest>,
+    pub publication_identity_option: core::option::Option<PublicationIdentity>,
+    pub publication_manifest_option: core::option::Option<PublicationManifest>,
 }
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -188,7 +191,7 @@ pub enum PublicationOperation {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub enum InvalidPlacement {
-    Unknown(String),
+    Unknown(alloc::string::String),
     NonScalar,
     Duplicate,
 }
@@ -237,13 +240,13 @@ pub struct BoundaryEvidence {
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ExpectedRevision(
-    pub std::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
 #[cfg_attr(feature = "datom", derive(datom_codec::Datomizable, datom_codec::Composing))]
 pub struct ObservedRevision(
-    pub std::option::Option<signal_belief_nexus::PublicationRevision>,
+    pub core::option::Option<signal_belief_nexus::PublicationRevision>,
 );
 #[rustfmt::skip]
 #[derive(rkyv::Archive, rkyv::Serialize, rkyv::Deserialize, Clone, Debug, PartialEq, Eq, Hash)]
@@ -307,19 +310,19 @@ pub trait Answering {
     fn snapshot(
         &self,
         repository: &signal_belief_nexus::Repository,
-    ) -> std::result::Result<SourceSnapshot, Output>;
+    ) -> core::result::Result<SourceSnapshot, Output>;
     fn publish(
         &self,
         publication: &Publication,
-    ) -> std::result::Result<PublicationState, Output>;
+    ) -> core::result::Result<PublicationState, Output>;
     fn inspect_publication(
         &self,
         inspection_request: &InspectionRequest,
-    ) -> std::result::Result<PublicationInspection, Output>;
+    ) -> core::result::Result<PublicationInspection, Output>;
     fn clean(
         &self,
         cleanup_request: &CleanupRequest,
-    ) -> std::result::Result<CleanupState, Output>;
+    ) -> core::result::Result<CleanupState, Output>;
 }
 #[rustfmt::skip]
 pub trait Answerable {
